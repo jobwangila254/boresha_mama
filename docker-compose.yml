@@ -1,0 +1,45 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: boresha_mama
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-Qwerty123}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  api:
+    build: ./backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 5000
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: boresha_mama
+      DB_USER: postgres
+      DB_PASSWORD: ${DB_PASSWORD:-Qwerty123}
+      JWT_SECRET: ${JWT_SECRET}
+      AT_API_KEY: ${AT_API_KEY:-}
+      AT_USERNAME: ${AT_USERNAME:-}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000,http://localhost:3001}
+    ports:
+      - "5000:5000"
+    volumes:
+      - uploads:/app/uploads
+      - logs:/app/logs
+    command: sh -c "node src/migrations/run.js && node src/index.js"
+
+volumes:
+  pgdata:
+  uploads:
+  logs:
