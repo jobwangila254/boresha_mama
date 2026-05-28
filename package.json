@@ -1,0 +1,36 @@
+{
+  "name": "boresha-mama",
+  "version": "1.0.0",
+  "description": "Mobile and Web-Based Maternal Healthcare System for Trans-Nzoia County, Kenya",
+  "private": true,
+  "scripts": {
+    "backend:dev": "cd backend && npm run dev",
+    "backend:start": "cd backend && npm start",
+    "backend:migrate": "cd backend && npm run migrate",
+    "mother:start": "cd mother-app && npx react-native start",
+    "mother:web": "cd mother-app && npm run web",
+    "chv:start": "cd chv-app && npx react-native start",
+    "facility:start": "cd facility-dashboard && npm start",
+    "county:start": "cd county-portal && npm start",
+    "test:backend": "cd backend && npm test",
+    "deploy:backend": "cd backend && npm run deploy",
+    "demo:reset": "bash demo.sh reset",
+    "demo:start": "bash demo.sh start",
+    "demo": "bash demo.sh",
+    "lint": "cd backend && npm run lint",
+    "seed:admin": "cd backend && node src/migrations/seed-admin.js",
+    "db:reset": "cd backend && node -e \"const {Pool}=require('pg');const p=new Pool({host:process.env.DB_HOST||'localhost',port:process.env.DB_PORT||5432,database:process.env.DB_NAME||'boresha_mama',user:process.env.DB_USER||'postgres',password:process.env.DB_PASSWORD});p.query('DROP SCHEMA IF EXISTS public CASCADE;CREATE SCHEMA public;').then(()=>{console.log('DB reset OK');process.exit(0)}).catch(e=>{console.error(e.message);process.exit(1)}) \"",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "backend/src/**/*.js": "eslint --fix",
+    "backend/tests/**/*.js": "eslint --fix"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.4.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.5",
+    "patch-package": "^8.0.1"
+  }
+}
