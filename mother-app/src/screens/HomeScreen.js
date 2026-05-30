@@ -157,7 +157,7 @@ export default function HomeScreen({ navigation }) {
             </View>
             <View style={styles.statBox}>
               <Text style={styles.statLabel}>{t('ward')}</Text>
-              <Text style={styles.statValue}>{pregnancy.mother_ward || t('na_label')}</Text>
+              <Text style={styles.statValue}>{pregnancy.ward || t('na_label')}</Text>
             </View>
           </View>
           <View style={styles.badgeRow}>
@@ -214,6 +214,14 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.chvLabel}>{t('your_chv')}</Text>
           <Text style={styles.chvName}>{pregnancy.chv_first_name} {pregnancy.chv_last_name}</Text>
           {pregnancy.chv_phone && <Text style={styles.chvPhone}>{pregnancy.chv_phone}</Text>}
+        </View>
+      )}
+
+      {pregnancy.registered_by_name && (
+        <View style={styles.registrarCard}>
+          <Text style={styles.chvLabel}>{t('registered_by')}</Text>
+          <Text style={styles.chvName}>{pregnancy.registered_by_name}</Text>
+          {pregnancy.created_at && <Text style={styles.chvPhone}>{t('on_date')} {new Date(pregnancy.created_at).toLocaleDateString()}</Text>}
         </View>
       )}
 
@@ -296,6 +304,7 @@ const styles = StyleSheet.create({
   chvLabel: { fontSize: 11, color: '#2980B9', fontWeight: '600', textTransform: 'uppercase' },
   chvName: { fontSize: 15, fontWeight: '600', color: '#2C3E50', marginTop: 2 },
   chvPhone: { fontSize: 13, color: '#7F8C8D', marginTop: 1 },
+  registrarCard: { backgroundColor: '#FFF5F5', margin: 16, marginTop: 0, borderRadius: 12, padding: 14, borderLeftWidth: 3, borderLeftColor: '#C0392B' },
   quickActions: { flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 12 },
   actionCard: { width: '46%', backgroundColor: '#fff', margin: '2%', borderRadius: 12, padding: 16, alignItems: 'center', elevation: 2, boxShadow: '0 1px 4px rgba(0,0,0,0.08)' },
   actionIcon: { fontSize: 32, marginBottom: 8 },

@@ -18,7 +18,16 @@ export function AuthProvider({ children }) {
       const token = await api.loadToken();
       if (token) {
         const profile = await api.getProfile();
-        setUser(profile);
+        setUser({
+          id: profile.id,
+          phone: profile.phone,
+          role: profile.role,
+          firstName: profile.first_name,
+          lastName: profile.last_name,
+          email: profile.email,
+          preferredLanguage: profile.preferred_language,
+          nationalId: profile.national_id,
+        });
         setIsAuthenticated(true);
       }
     } catch (err) {

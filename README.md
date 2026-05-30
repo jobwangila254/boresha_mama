@@ -52,24 +52,10 @@ health facilities, and county officials to improve maternal and neonatal health 
 ### Prerequisites
 
 - Node.js 20+
-- PostgreSQL 16 (or Docker)
+- PostgreSQL 16+
 - npm
 
-### Using Docker (recommended for backend)
-
-```bash
-# Start PostgreSQL + API server
-cp backend/.env.example backend/.env        # edit with your secrets
-docker compose up -d
-
-# Run database migrations
-docker compose exec api node src/migrations/run.js
-
-# Seed demo data
-docker compose exec api node src/migrations/seed.js
-```
-
-### Manual setup
+### Setup
 
 ```bash
 # 1. Backend
@@ -138,7 +124,6 @@ boresha-mama/
 ├── chv-app/             # React Native app for CHVs
 ├── facility-dashboard/  # React.js web dashboard (CRA)
 ├── county-portal/       # React.js web portal (CRA)
-├── docker-compose.yml   # PostgreSQL + API
 ├── shared/              # Shared web shims, components
 ├── docs/                # Training materials
 └── scripts/             # Deployment utilities

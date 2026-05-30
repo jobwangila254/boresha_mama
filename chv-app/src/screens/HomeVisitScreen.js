@@ -104,7 +104,13 @@ export default function HomeVisitScreen({ route, navigation }) {
       Alert.alert(t('success'), isOnline ? t('visit_recorded') : t('visit_saved_offline'));
       navigation.goBack();
     } catch (err) {
-      Alert.alert(t('error'), err.message);
+      try {
+        await offlineStore.saveVisit(visitData);
+        Alert.alert(t('success'), t('visit_saved_offline'));
+        navigation.goBack();
+      } catch {
+        Alert.alert(t('error'), err.message);
+      }
     } finally {
       setSaving(false);
     }
@@ -251,7 +257,7 @@ const styles = StyleSheet.create({
   dangerChipTextSelected: { color: '#fff' },
   alertBox: { backgroundColor: '#FDEDED', padding: 12, borderRadius: 8, marginTop: 8, borderLeftWidth: 3, borderLeftColor: '#E74C3C' },
   alertText: { color: '#C0392B', fontSize: 13, fontWeight: '500' },
-  textArea: { height: 80, textAlignVertical: 'top' },
+  textArea: { minHeight: 80, textAlignVertical: 'top' },
   saveBtn: { backgroundColor: '#2980B9', borderRadius: 10, padding: 16, alignItems: 'center', marginTop: 20 },
   saveBtnText: { color: '#fff', fontSize: 16, fontWeight: '600' },
 });

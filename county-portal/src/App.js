@@ -11,8 +11,15 @@ import ReportsPage from './pages/ReportsPage';
 import ReferralsPage from './pages/ReferralsPage';
 import Layout from './components/Layout';
 
-function PrivateRoute({ children }) {
-  return localStorage.getItem('token') ? children : <Navigate to="/login" />;
+function PrivateRoute({ children, user }) {
+  const token = localStorage.getItem('token');
+  if (!token) return <Navigate to="/login" />;
+  if (!user || user.role !== 'county_admin') {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    return <Navigate to="/login" />;
+  }
+  return children;
 }
 
 export default function App() {
@@ -28,7 +35,7 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<LoginPage setUser={setUser} />} />
-        <Route path="/" element={<PrivateRoute><Layout user={user} setUser={setUser} /></PrivateRoute>}>
+        <Route path="/" element={<PrivateRoute user={user}><Layout user={user} setUser={setUser} /></PrivateRoute>}>
           <Route index element={<DashboardPage />} />
           <Route path="analytics" element={<AnalyticsPage />} />
           <Route path="facilities" element={<FacilitiesPage />} />

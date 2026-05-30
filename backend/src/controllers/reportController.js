@@ -86,7 +86,9 @@ exports.getDashboardStats = async (req, res, next) => {
 
 exports.getKPIData = async (req, res, next) => {
   try {
-    const { period = 'monthly', startDate, endDate } = req.query;
+    const { period: periodRaw = 'monthly', startDate, endDate } = req.query;
+    const truncMap = { monthly: 'month', quarterly: 'quarter', daily: 'day', weekly: 'week' };
+    const period = truncMap[periodRaw] || periodRaw;
 
     const ancCoverage = await db.query(`
       SELECT

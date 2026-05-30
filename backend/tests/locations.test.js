@@ -29,15 +29,15 @@ describe('Location Controller', () => {
       await getLocations(req, res, next);
 
       expect(query).toHaveBeenCalledWith(
-        'SELECT * FROM locations WHERE is_active = true ORDER BY constituency ASC, ward ASC, village ASC',
+        'SELECT * FROM locations WHERE is_active = true ORDER BY constituency ASC, ward ASC, sub_location ASC, village ASC',
         []
       );
       expect(res.json).toHaveBeenCalledWith([
         {
           constituency: 'Const A',
           wards: [
-            { ward: 'Ward 1', villages: ['Village 1', 'Village 2'] },
-            { ward: 'Ward 2', villages: ['Village 3'] },
+            { ward: 'Ward 1', sub_locations: [], villages: ['Village 1', 'Village 2'] },
+            { ward: 'Ward 2', sub_locations: [], villages: ['Village 3'] },
           ],
         },
       ]);

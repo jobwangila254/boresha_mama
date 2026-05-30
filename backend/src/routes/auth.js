@@ -2,18 +2,21 @@ const { Router } = require('express');
 const { body } = require('express-validator');
 const { validate } = require('../middleware/validate');
 const { authenticate, authorize } = require('../middleware/auth');
+const { audit } = require('../middleware/audit');
 const controller = require('../controllers/authController');
 
 const router = Router();
 
-router.post('/register', authenticate, authorize('county_admin'), [
+router.post('/register', authenticate, authorize('county_admin'), audit('REGISTER_USER', 'user'), [
   body('phone').matches(/^\+?254\d{9}$/).withMessage('Valid Kenyan phone number required'),
   body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
   body('firstName').notEmpty().trim(),
   body('lastName').notEmpty().trim(),
   body('role').isIn(['mother', 'chv', 'facility_staff', 'county_admin']),
-  body('nationalId').optional().isLength({ min: 5 }),
-  body('areaOfCoverage').optional().trim(),
+  body('nationalId').if(body('role').equals('chv')).notEmpty().isLength({ min: 5 }).withMessage('National ID is required for CHVs'),
+  body('nationalId').if(body('role').not().equals('chv')).optional().isLength({ min: 5 }),
+  body('areaOfCoverage').if(body('role').equals('chv')).notEmpty().withMessage('Area of coverage is required for CHVs').trim(),
+  body('areaOfCoverage').if(body('role').not().equals('chv')).optional().trim(),
   body('facilityId').optional().isUUID(),
   validate,
 ], controller.register);

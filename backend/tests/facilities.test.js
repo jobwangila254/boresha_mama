@@ -29,7 +29,7 @@ describe('Facility Controller', () => {
       await getFacilities(req, res, next);
 
       expect(query).toHaveBeenCalledWith(
-        'SELECT * FROM facilities WHERE is_active = true ORDER BY name ASC',
+        'SELECT * FROM facilities WHERE 1=1 AND is_active = true ORDER BY name ASC',
         []
       );
       expect(res.json).toHaveBeenCalledWith(rows);

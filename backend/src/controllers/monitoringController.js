@@ -1,6 +1,7 @@
 const db = require('../config/database');
 const { AppError } = require('../middleware/errorHandler');
 const logger = require('../config/logger');
+const smsService = require('../services/smsService');
 
 exports.recordSelfMonitoring = async (req, res, next) => {
   try {
@@ -89,18 +90,33 @@ async function createDangerAlert(pregnancyId, motherId, _monitoringRecord) {
   try {
     const alertMessage = 'Danger signs detected. Please contact your CHV or visit the nearest health facility immediately.';
 
-    // Get mother's user ID
+    // Get mother's user ID and phone
     const motherResult = await db.query(
-      'SELECT user_id FROM mothers WHERE id = $1',
+      'SELECT m.user_id, u.phone FROM mothers m JOIN users u ON m.user_id = u.id WHERE m.id = $1',
       [motherId]
     );
     if (motherResult.rows.length > 0) {
-      const userId = motherResult.rows[0].user_id;
+      const { user_id: userId, phone } = motherResult.rows[0];
       await db.query(
         `INSERT INTO notifications (user_id, title, message, type, channel)
          VALUES ($1, $2, $3, $4, $5)`,
         [userId, 'Danger Sign Alert!', alertMessage, 'alert', 'both']
       );
+
+      smsService.sendSms(phone, `Boresha-Mama: ${alertMessage}`).catch(err => {
+        logger.error('Danger alert SMS failed:', err.message);
+      });
+
+      // Also notify mother's CHV if assigned
+      const chvResult = await db.query(
+        `SELECT u.phone FROM mothers m JOIN users u ON m.chv_id = u.id WHERE m.id = $1 AND m.chv_id IS NOT NULL`,
+        [motherId]
+      );
+      if (chvResult.rows.length > 0) {
+        smsService.sendSms(chvResult.rows[0].phone, `Boresha-Mama: A mother under your care has reported danger signs. Please follow up urgently.`).catch(err => {
+          logger.error('CHV danger alert SMS failed:', err.message);
+        });
+      }
     }
   } catch (err) {
       logger.error('Failed to create danger alert:', err);

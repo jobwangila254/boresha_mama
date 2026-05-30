@@ -27,14 +27,14 @@ function HomeTabs() {
       screenOptions={{
         tabBarActiveTintColor: '#C0392B',
         tabBarInactiveTintColor: '#999',
-        tabBarStyle: {
-          backgroundColor: '#fff',
-          borderTopWidth: 1,
-          borderTopColor: '#F0F0F0',
-          paddingBottom: 8,
-          paddingTop: 8,
-          height: 60,
-        },
+          tabBarStyle: {
+            backgroundColor: '#fff',
+            borderTopWidth: 1,
+            borderTopColor: '#F0F0F0',
+            paddingBottom: 8,
+            paddingTop: 8,
+            minHeight: 60,
+          },
         tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
         headerShown: false,
       }}
@@ -76,7 +76,7 @@ function HomeTabs() {
 }
 
 export default function AppNavigator() {
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, loading, user } = useAuth();
   const { t } = useTranslation();
 
   if (loading) {
@@ -95,7 +95,9 @@ export default function AppNavigator() {
         {isAuthenticated ? (
           <>
             <Stack.Screen name="Main" component={HomeTabs} />
+          {['chv', 'facility_staff', 'county_admin'].includes(user?.role) && (
             <Stack.Screen name="RegisterMother" component={RegisterMotherScreen} />
+          )}
             <Stack.Screen name="Facilities" component={FacilitiesScreen} />
             <Stack.Screen name="HealthTips" component={HealthTipsScreen} />
           </>

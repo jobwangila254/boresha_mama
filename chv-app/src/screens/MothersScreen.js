@@ -42,6 +42,7 @@ export default function MothersScreen({ navigation }) {
                 <Text style={styles.name}>{p.mother_name}</Text>
                 <Text style={styles.phone}>{p.mother_phone}</Text>
                 <Text style={styles.due}>{t('edd')}: {p.edd_date ? new Date(p.edd_date).toLocaleDateString() : 'N/A'}</Text>
+                <Text style={styles.registrar}>by {p.registered_by_name || 'Unknown'} · {p.created_at ? new Date(p.created_at).toLocaleDateString() : ''}</Text>
               </View>
               <Text style={[styles.risk, p.risk_level === 'high' && styles.riskHigh, p.risk_level === 'medium' && styles.riskMedium, p.risk_level === 'low' && styles.riskLow]}>
                 {p.risk_level}
@@ -71,6 +72,7 @@ const styles = StyleSheet.create({
   name: { fontSize: 16, fontWeight: '600', color: '#2C3E50' },
   phone: { fontSize: 13, color: '#7F8C8D' },
   due: { fontSize: 12, color: '#2980B9', marginTop: 2 },
+  registrar: { fontSize: 11, color: '#999', marginTop: 1 },
   risk: { fontSize: 11, fontWeight: 'bold', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 10, color: '#fff' },
   riskLow: { backgroundColor: '#27AE60' },
   riskMedium: { backgroundColor: '#F39C12' },

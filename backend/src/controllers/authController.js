@@ -171,26 +171,36 @@ exports.getUsers = async (req, res, next) => {
     const roles = role ? role.split(',') : [];
     const query = `
       SELECT
-        u.id, u.phone, u.first_name, u.last_name, u.email,
+        u.id, u.phone, u.national_id, u.first_name, u.last_name, u.email,
         u.role, u.is_verified, u.is_active, u.created_at, u.last_login,
         jsonb_build_object(
           'id', cp.id,
           'facility_id', cp.facility_id,
           'area_of_coverage', cp.area_of_coverage,
-          'years_of_experience', cp.years_of_experience
-        ) AS chv_profile,
+          'years_of_experience', cp.years_of_experience,
+          'date_of_birth', cp.date_of_birth,
+          'gender', cp.gender,
+          'education_level', cp.education_level,
+          'chv_registration_number', cp.chv_registration_number,
+          'training_date', cp.training_date,
+          'village', cp.village,
+          'sub_location', cp.sub_location,
+          'emergency_contact_name', cp.emergency_contact_name,
+          'emergency_contact_phone', cp.emergency_contact_phone
+        ) AS "chvProfile",
         CASE WHEN fs.id IS NOT NULL THEN
           jsonb_build_object(
             'facility_id', fs.facility_id,
             'facility_name', f.name,
-            'facility_ward', f.ward
+            'facility_ward', f.ward,
+            'job_title', fs.job_title
           )
         ELSE NULL END AS facility_staff
       FROM users u
       LEFT JOIN chv_profiles cp ON cp.user_id = u.id
       LEFT JOIN facility_staff fs ON fs.user_id = u.id
       LEFT JOIN facilities f ON f.id = fs.facility_id
-      ${roles.length > 0 ? 'WHERE u.role = ANY($1::text[])' : ''}
+      ${roles.length > 0 ? 'WHERE u.role::text = ANY($1::text[])' : ''}
       ORDER BY u.created_at DESC
     `;
     const params = roles.length > 0 ? [roles] : [];

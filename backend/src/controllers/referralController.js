@@ -1,6 +1,7 @@
 const db = require('../config/database');
 const { AppError } = require('../middleware/errorHandler');
 const logger = require('../config/logger');
+const smsService = require('../services/smsService');
 
 exports.createReferral = async (req, res, next) => {
   try {
@@ -16,8 +17,26 @@ exports.createReferral = async (req, res, next) => {
       [pregnancyId, motherId, req.user.id, fromFacilityId, toFacilityId, referralReason, priority || 'normal', notes]
     );
 
-    logger.info(`Referral created: ${result.rows[0].id} to facility ${toFacilityId}`);
-    res.status(201).json(result.rows[0]);
+    const referral = result.rows[0];
+    logger.info(`Referral created: ${referral.id} to facility ${toFacilityId}`);
+
+    const motherInfo = await db.query(
+      `SELECT u.phone, u.first_name, f.name as facility_name
+       FROM mothers m
+       JOIN users u ON m.user_id = u.id
+       JOIN facilities f ON f.id = $1
+       WHERE m.id = $2`,
+      [toFacilityId, motherId]
+    );
+    if (motherInfo.rows.length > 0) {
+      const { phone, first_name, facility_name } = motherInfo.rows[0];
+      const urgency = referral.priority === 'emergency' ? 'URGENT: ' : referral.priority === 'urgent' ? 'Urgent: ' : '';
+      smsService.sendSms(phone, `Boresha-Mama: ${urgency}Hello ${first_name}, you have been referred to ${facility_name} (${referral.referral_reason}). Please visit as soon as possible.`).catch(err => {
+        logger.error('Referral SMS failed:', err.message);
+      });
+    }
+
+    res.status(201).json(referral);
   } catch (err) {
     next(err);
   }
@@ -83,8 +102,32 @@ exports.updateReferralStatus = async (req, res, next) => {
       throw new AppError('Referral not found', 404);
     }
 
+    const referral = result.rows[0];
     logger.info(`Referral ${req.params.id} updated to ${status}`);
-    res.json(result.rows[0]);
+
+    const motherInfo = await db.query(
+      `SELECT u.phone, u.first_name, f.name as facility_name
+       FROM referrals r
+       JOIN mothers m ON r.mother_id = m.id
+       JOIN users u ON m.user_id = u.id
+       JOIN facilities f ON r.to_facility_id = f.id
+       WHERE r.id = $1`,
+      [req.params.id]
+    );
+    if (motherInfo.rows.length > 0) {
+      const { phone, first_name, facility_name } = motherInfo.rows[0];
+      if (status === 'accepted') {
+        smsService.sendSms(phone, `Boresha-Mama: Hello ${first_name}, your referral to ${facility_name} has been accepted. Please visit the facility.`).catch(err => {
+          logger.error('Referral status SMS failed:', err.message);
+        });
+      } else if (status === 'completed') {
+        smsService.sendSms(phone, `Boresha-Mama: Hello ${first_name}, your referral to ${facility_name} has been marked as completed. We hope you received the care you needed.`).catch(err => {
+          logger.error('Referral status SMS failed:', err.message);
+        });
+      }
+    }
+
+    res.json(referral);
   } catch (err) {
     next(err);
   }

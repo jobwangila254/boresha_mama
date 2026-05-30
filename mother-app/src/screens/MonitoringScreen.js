@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   halfField: { width: '48%' },
   bpStatus: { fontSize: 13, color: '#27AE60', marginTop: 4, fontWeight: '600' },
   bpDanger: { color: '#E74C3C' },
-  textArea: { height: 80, textAlignVertical: 'top' },
+  textArea: { minHeight: 80, textAlignVertical: 'top' },
   optionsRow: { flexDirection: 'row', justifyContent: 'space-around', marginTop: 8 },
   optionBtn: { paddingVertical: 8, paddingHorizontal: 20, borderRadius: 20, borderWidth: 1, borderColor: '#E0E0E0' },
   optionSelected: { backgroundColor: '#C0392B', borderColor: '#C0392B' },

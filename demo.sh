@@ -12,7 +12,6 @@ CHV_DIR="$(cd "$(dirname "$0")/chv-app" && pwd)"
 MOTHER_DIR="$(cd "$(dirname "$0")/mother-app" && pwd)"
 
 # ── Build the backend command ──────────────────────────
-# DB_HOST defaults to localhost unless running via docker
 DB_HOST="${DB_HOST:-localhost}"
 
 reset_db() {

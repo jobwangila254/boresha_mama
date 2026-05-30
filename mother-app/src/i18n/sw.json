@@ -214,5 +214,7 @@
   "logout_confirm": "Una uhakika unataka kutoka?",
   "phone_name_lmp_required": "Simu, jina, tarehe ya LMP, wadi, na kijiji vinahitajika",
   "mother_registered": "Mama amesajiliwa kwa mafanikio na ujauzito unaoendelea",
-  "reg_mother_subtitle": "Sajili mama mjamzito — inaunda akaunti + rekodi ya ujauzito"
+  "reg_mother_subtitle": "Sajili mama mjamzito — inaunda akaunti + rekodi ya ujauzito",
+  "registered_by": "Imeandikishwa na",
+  "on_date": "tarehe"
 }

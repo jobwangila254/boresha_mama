@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   header: { alignItems: 'center', marginBottom: 32 },
   title: { fontSize: 26, fontWeight: 'bold', color: '#004d26', marginBottom: 4 },
   subtitle: { fontSize: 14, color: '#666', textAlign: 'center' },
-  form: { backgroundColor: '#fff', borderRadius: 16, padding: 24, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 8 },
+  form: { backgroundColor: '#fff', borderRadius: 16, padding: 24, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' },
   label: { fontSize: 14, fontWeight: '600', color: '#333', marginBottom: 6, marginTop: 12 },
   input: { borderWidth: 1, borderColor: '#E0E0E0', borderRadius: 10, padding: 14, fontSize: 16, backgroundColor: '#FAFAFA' },
   button: { backgroundColor: '#006633', borderRadius: 10, padding: 16, alignItems: 'center', marginTop: 24 },

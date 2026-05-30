@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import { useTranslation } from '../context/LanguageContext';
 import api from '../services/api';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 function PickerModal({ visible, title, options, selected, onSelect, onClose }) {
   return (
@@ -170,7 +171,7 @@ export default function RegisterPregnancyScreen({ navigation }) {
 
   async function handleRegister() {
     const phone = normalizePhone(form.motherPhone);
-    if (!phone || !form.motherFirstName || !form.motherNationalId || !form.lmpDate || !form.ward || !form.village) {
+    if (!phone || !form.motherFirstName || !form.motherLastName || !form.motherNationalId || !form.motherDOB || !form.lmpDate || !form.constituency || !form.ward || !form.village) {
       Alert.alert(t('error'), t('phone_name_lmp_required'));
       return;
     }
@@ -221,7 +222,7 @@ export default function RegisterPregnancyScreen({ navigation }) {
         <Text style={styles.label}>Alternate Phone</Text>
         <TextInput style={styles.input} value={form.alternatePhone} onChangeText={v => updateField('alternatePhone', v)} placeholder="+254712345679" placeholderTextColor="#999" keyboardType="phone-pad" />
 
-        <Text style={styles.label}>National ID</Text>
+        <Text style={styles.label}>National ID *</Text>
         <TextInput style={styles.input} value={form.motherNationalId} onChangeText={v => updateField('motherNationalId', v)} placeholder="e.g. 12345678" placeholderTextColor="#999" keyboardType="number-pad" />
 
         <View style={styles.row}>
@@ -230,12 +231,12 @@ export default function RegisterPregnancyScreen({ navigation }) {
             <TextInput style={styles.input} value={form.motherFirstName} onChangeText={v => updateField('motherFirstName', v)} placeholderTextColor="#999" />
           </View>
           <View style={styles.halfField}>
-            <Text style={styles.label}>Last Name</Text>
+            <Text style={styles.label}>Last Name *</Text>
             <TextInput style={styles.input} value={form.motherLastName} onChangeText={v => updateField('motherLastName', v)} placeholderTextColor="#999" />
           </View>
         </View>
 
-        <Text style={styles.label}>Date of Birth</Text>
+        <Text style={styles.label}>Date of Birth *</Text>
         {Platform.OS === 'web' ? (
           <DateTimePicker
             value={form.motherDOB ? new Date(form.motherDOB) : undefined}
@@ -263,7 +264,7 @@ export default function RegisterPregnancyScreen({ navigation }) {
           </>
         )}
 
-        <Text style={styles.label}>Constituency</Text>
+        <Text style={styles.label}>Constituency *</Text>
         <TouchableOpacity
           style={styles.input}
           onPress={() => setShowConstituencyPicker(true)}
@@ -274,7 +275,7 @@ export default function RegisterPregnancyScreen({ navigation }) {
           </Text>
         </TouchableOpacity>
 
-        <Text style={styles.label}>Ward</Text>
+        <Text style={styles.label}>Ward *</Text>
         <TouchableOpacity
           style={styles.input}
           onPress={() => {
@@ -291,7 +292,7 @@ export default function RegisterPregnancyScreen({ navigation }) {
           </Text>
         </TouchableOpacity>
 
-        <Text style={styles.label}>Village</Text>
+        <Text style={styles.label}>Village *</Text>
         <TouchableOpacity
           style={styles.input}
           onPress={() => {
@@ -454,7 +455,7 @@ const styles = StyleSheet.create({
   registerBtn: { backgroundColor: '#2980B9', margin: 12, borderRadius: 12, padding: 16, alignItems: 'center' },
   registerBtnText: { color: '#fff', fontSize: 16, fontWeight: '600' },
   overlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', padding: 30 },
-  modalContent: { backgroundColor: '#fff', borderRadius: 12, maxHeight: 400 },
+  modalContent: { backgroundColor: '#fff', borderRadius: 12, maxHeight: '80%' },
   modalHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 16, borderBottomWidth: 1, borderBottomColor: '#E0E0E0' },
   modalTitle: { fontSize: 17, fontWeight: 'bold', color: '#2C3E50' },
   modalClose: { fontSize: 18, color: '#999', padding: 4 },

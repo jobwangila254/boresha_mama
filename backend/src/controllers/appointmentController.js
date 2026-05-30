@@ -1,5 +1,7 @@
 const db = require('../config/database');
 const { AppError } = require('../middleware/errorHandler');
+const logger = require('../config/logger');
+const smsService = require('../services/smsService');
 
 exports.createAppointment = async (req, res, next) => {
   try {
@@ -12,7 +14,24 @@ exports.createAppointment = async (req, res, next) => {
       [pregnancyId, motherId, facilityId, req.user.id, appointmentDate, visitType, reason]
     );
 
-    res.status(201).json(result.rows[0]);
+    const appointment = result.rows[0];
+    const motherInfo = await db.query(
+      `SELECT u.phone, u.first_name, f.name as facility_name
+       FROM mothers m
+       JOIN users u ON m.user_id = u.id
+       JOIN facilities f ON f.id = $1
+       WHERE m.id = $2`,
+      [facilityId, motherId]
+    );
+    if (motherInfo.rows.length > 0) {
+      const { phone, first_name, facility_name } = motherInfo.rows[0];
+      const aptDate = new Date(appointmentDate).toDateString();
+      smsService.sendSms(phone, `Boresha-Mama: Hello ${first_name}, your ${visitType.replace('_', ' ')} appointment at ${facility_name} has been booked for ${aptDate}. We will send a reminder a day before.`).catch(err => {
+        logger.error('Appointment confirmation SMS failed:', err.message);
+      });
+    }
+
+    res.status(201).json(appointment);
   } catch (err) {
     next(err);
   }
@@ -110,7 +129,30 @@ exports.updateAppointmentStatus = async (req, res, next) => {
       throw new AppError('Appointment not found', 404);
     }
 
-    res.json(result.rows[0]);
+    const updated = result.rows[0];
+    const aptInfo = await db.query(
+      `SELECT u.phone, u.first_name, f.name as facility_name
+       FROM appointments a
+       JOIN mothers m ON a.mother_id = m.id
+       JOIN users u ON m.user_id = u.id
+       JOIN facilities f ON a.facility_id = f.id
+       WHERE a.id = $1`,
+      [req.params.id]
+    );
+    if (aptInfo.rows.length > 0) {
+      const { phone, first_name, facility_name } = aptInfo.rows[0];
+      if (status === 'completed') {
+        smsService.sendSms(phone, `Boresha-Mama: Hello ${first_name}, your appointment at ${facility_name} has been marked as completed. Take care!`).catch(err => {
+          logger.error('Appointment complete SMS failed:', err.message);
+        });
+      } else if (status === 'cancelled') {
+        smsService.sendSms(phone, `Boresha-Mama: Hello ${first_name}, your appointment at ${facility_name} has been cancelled. Please contact your CHV to reschedule.`).catch(err => {
+          logger.error('Appointment cancel SMS failed:', err.message);
+        });
+      }
+    }
+
+    res.json(updated);
   } catch (err) {
     next(err);
   }

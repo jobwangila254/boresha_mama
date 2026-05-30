@@ -1,5 +1,6 @@
 const db = require('../config/database');
 const logger = require('../config/logger');
+const smsService = require('../services/smsService');
 
 exports.createHomeVisit = async (req, res, next) => {
   try {
@@ -30,6 +31,17 @@ exports.createHomeVisit = async (req, res, next) => {
         'UPDATE pregnancies SET risk_level = $1, updated_at = NOW() WHERE id = $2 AND risk_level != $1',
         ['high', pregnancyId]
       );
+
+      const motherResult = await db.query(
+        'SELECT u.phone, u.first_name FROM mothers m JOIN users u ON m.user_id = u.id WHERE m.id = $1',
+        [motherId]
+      );
+      if (motherResult.rows.length > 0) {
+        const { phone, first_name } = motherResult.rows[0];
+        smsService.sendSms(phone, `Boresha-Mama: Hello ${first_name}, your CHV has recorded danger signs during today's visit. Please go to the nearest health facility immediately.`).catch(err => {
+          logger.error('Danger signs SMS failed:', err.message);
+        });
+      }
     }
 
     logger.info(`Home visit recorded: ${result.rows[0].id} for pregnancy ${pregnancyId}`);

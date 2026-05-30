@@ -214,5 +214,7 @@
   "logout_confirm": "Are you sure you want to logout?",
   "phone_name_lmp_required": "Phone, name, LMP date, ward, and village are required",
   "mother_registered": "Mother registered successfully with active pregnancy",
-  "reg_mother_subtitle": "Register a pregnant mother — creates account + pregnancy record"
+  "reg_mother_subtitle": "Register a pregnant mother — creates account + pregnancy record",
+  "registered_by": "Registered by",
+  "on_date": "on"
 }

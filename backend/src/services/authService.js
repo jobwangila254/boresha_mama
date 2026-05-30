@@ -31,12 +31,10 @@ class AuthService {
 
       const passwordHash = await bcrypt.hash(password, 12);
       const userId = uuidv4();
-      const effectiveNationalId = role === 'chv' ? phone : nationalId;
-
       await client.query(
         `INSERT INTO users (id, phone, national_id, first_name, last_name, password_hash, role)
          VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-        [userId, phone, effectiveNationalId, firstName, lastName, passwordHash, role]
+        [userId, phone, nationalId, firstName, lastName, passwordHash, role]
       );
 
       // Create role-specific profile
@@ -46,10 +44,13 @@ class AuthService {
           [userId]
         );
       } else if (role === 'chv') {
-        const { areaOfCoverage, facilityId } = userData;
+        const { areaOfCoverage, facilityId, dateOfBirth, gender, educationLevel, chvRegistrationNumber, trainingDate, village, subLocation, emergencyContactName, emergencyContactPhone, yearsOfExperience } = userData;
         await client.query(
-          'INSERT INTO chv_profiles (user_id, area_of_coverage, facility_id) VALUES ($1, $2, $3)',
-          [userId, areaOfCoverage || null, facilityId || null]
+          `INSERT INTO chv_profiles (user_id, facility_id, area_of_coverage, years_of_experience, date_of_birth, gender, education_level, chv_registration_number, training_date, village, sub_location, emergency_contact_name, emergency_contact_phone)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
+          [userId, facilityId || null, areaOfCoverage || null, yearsOfExperience || 0,
+           dateOfBirth || null, gender || null, educationLevel || null, chvRegistrationNumber || null,
+           trainingDate || null, village || null, subLocation || null, emergencyContactName || null, emergencyContactPhone || null]
         );
       } else if (role === 'facility_staff') {
         const { facilityId, jobTitle } = userData;
@@ -170,17 +171,6 @@ class AuthService {
       let chvId = null;
       if (registeredByUser.role === 'chv') {
         chvId = registeredByUser.id;
-      } else if (ward) {
-        const chvResult = await client.query(
-          `SELECT u.id FROM users u
-           JOIN chv_profiles cp ON cp.user_id = u.id
-           WHERE u.role = 'chv' AND cp.area_of_coverage = $1
-           LIMIT 1`,
-          [ward]
-        );
-        if (chvResult.rows.length > 0) {
-          chvId = chvResult.rows[0].id;
-        }
       }
 
       const motherResult = await client.query(
@@ -203,12 +193,22 @@ class AuthService {
         [motherId, registeredByUser.id, facilityId || null, lmpDate, eddDate, gravida || 1, parity || 0]
       );
 
+      const pregnancy = pregnancyResult.rows[0];
+
+      if (registeredByUser.role === 'chv') {
+        await client.query(
+          `INSERT INTO home_visits (pregnancy_id, mother_id, chv_id, visit_date, visit_type, notes)
+           VALUES ($1, $2, $3, CURRENT_DATE, 'antenatal', $4)`,
+          [pregnancy.id, motherId, registeredByUser.id, 'Initial registration visit']
+        );
+      }
+
       await client.query('COMMIT');
 
       const token = this.generateToken({ id: userId, role: 'mother', phone });
       logger.info(`Mother registered by ${registeredByUser.role} ${registeredByUser.id}: ${phone}`);
 
-      const smsMessage = `Welcome to Boresha Mama. Your account has been created. Please log in with phone ${phone} using the password provided by your CHV.`;
+      const smsMessage = `Welcome to Boresha Mama. Your account has been created. Use phone ${phone} and password ${password} to log in. Please change your password after first login.`;
       smsService.sendSms(phone, smsMessage).catch(err => {
         logger.error('SMS notification failed for new mother:', err.message);
       });

@@ -7,7 +7,9 @@ class SmsService {
   constructor() {
     this.apiKey = config.sms.apiKey;
     this.username = config.sms.username;
-    this.baseUrl = 'https://api.africastalking.com/version1/messaging';
+    this.baseUrl = this.username === 'sandbox'
+      ? 'https://api.sandbox.africastalking.com/version1/messaging'
+      : 'https://api.africastalking.com/version1/messaging';
   }
 
   async sendSms(recipients, message) {
@@ -22,6 +24,7 @@ class SmsService {
     );
 
     try {
+      const auth = Buffer.from(`${this.username}:${this.apiKey}`).toString('base64');
       const response = await axios.post(
         `${this.baseUrl}`,
         new URLSearchParams({
@@ -33,7 +36,7 @@ class SmsService {
         {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'apiKey': this.apiKey,
+            'Authorization': `Basic ${auth}`,
           },
         }
       );

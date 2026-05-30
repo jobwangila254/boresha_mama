@@ -13,12 +13,25 @@ export function AuthProvider({ children }) {
     loadStoredAuth();
   }, []);
 
+  function mapProfile(profile) {
+    return {
+      id: profile.id,
+      phone: profile.phone,
+      role: profile.role,
+      firstName: profile.first_name,
+      lastName: profile.last_name,
+      email: profile.email,
+      preferredLanguage: profile.preferred_language,
+      nationalId: profile.national_id,
+    };
+  }
+
   async function loadStoredAuth() {
     try {
       const token = await api.loadToken();
       if (token) {
         const profile = await api.getProfile();
-        setUser(profile);
+        setUser(mapProfile(profile));
         setIsAuthenticated(true);
       }
     } catch (err) {
@@ -32,7 +45,7 @@ export function AuthProvider({ children }) {
     const response = await api.login(phone, password);
     await api.setToken(response.token);
     const profile = await api.getProfile();
-    setUser(profile);
+    setUser(mapProfile(profile));
     setIsAuthenticated(true);
     return response;
   }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import transnzoiaLogo from '../assets/images/transnzoia-logo.webp';
 
 export default function CountyLogo({ size = 80, showTagline = true }) {
   const imgSize = size * 0.8;
@@ -7,8 +8,9 @@ export default function CountyLogo({ size = 80, showTagline = true }) {
   return (
     <View style={styles.wrapper}>
       <Image
-        source={require('../assets/images/transnzoia-logo.webp')}
-        style={{ width: imgSize * 1.5, height: imgSize * 0.75, resizeMode: 'contain' }}
+        source={transnzoiaLogo}
+        resizeMode="contain"
+        style={{ width: imgSize * 1.5, height: imgSize * 0.75 }}
       />
       <Text style={[styles.countyName, { fontSize: size * 0.13 }]}>TRANS-NZOIA COUNTY</Text>
       {showTagline && (

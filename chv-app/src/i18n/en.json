@@ -58,7 +58,7 @@
   "emergency": "Emergency",
   "notes": "Notes",
   "danger_signs": "Danger Signs",
-  "phone_name_lmp_required": "Please fill required fields: phone, national ID, name, LMP date, ward, and village",
+  "phone_name_lmp_required": "Please fill required fields: phone, first name, last name, national ID, date of birth, LMP date, constituency, ward, and village",
   "constituency": "Constituency",
   "ward": "Ward",
   "village": "Village",
