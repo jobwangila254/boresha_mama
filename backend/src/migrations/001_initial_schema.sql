@@ -8,12 +8,36 @@ CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 -- ============================================
 -- ENUM TYPES
 -- ============================================
-CREATE TYPE IF NOT EXISTS user_role AS ENUM ('mother', 'chv', 'facility_staff', 'county_admin');
-CREATE TYPE IF NOT EXISTS pregnancy_status AS ENUM ('active', 'delivered', 'lost', 'transferred');
-CREATE TYPE IF NOT EXISTS risk_level AS ENUM ('low', 'medium', 'high', 'critical');
-CREATE TYPE IF NOT EXISTS referral_status AS ENUM ('pending', 'accepted', 'completed', 'cancelled');
-CREATE TYPE IF NOT EXISTS appointment_status AS ENUM ('scheduled', 'completed', 'cancelled', 'missed');
-CREATE TYPE IF NOT EXISTS visit_type AS ENUM ('antenatal', 'postnatal', 'follow_up', 'emergency');
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'user_role') THEN
+    CREATE TYPE user_role AS ENUM ('mother', 'chv', 'facility_staff', 'county_admin');
+  END IF;
+END $$ LANGUAGE plpgsql;
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'pregnancy_status') THEN
+    CREATE TYPE pregnancy_status AS ENUM ('active', 'delivered', 'lost', 'transferred');
+  END IF;
+END $$ LANGUAGE plpgsql;
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'risk_level') THEN
+    CREATE TYPE risk_level AS ENUM ('low', 'medium', 'high', 'critical');
+  END IF;
+END $$ LANGUAGE plpgsql;
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'referral_status') THEN
+    CREATE TYPE referral_status AS ENUM ('pending', 'accepted', 'completed', 'cancelled');
+  END IF;
+END $$ LANGUAGE plpgsql;
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'appointment_status') THEN
+    CREATE TYPE appointment_status AS ENUM ('scheduled', 'completed', 'cancelled', 'missed');
+  END IF;
+END $$ LANGUAGE plpgsql;
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'visit_type') THEN
+    CREATE TYPE visit_type AS ENUM ('antenatal', 'postnatal', 'follow_up', 'emergency');
+  END IF;
+END $$ LANGUAGE plpgsql;
 
 -- ============================================
 -- USERS TABLE (base for all roles)
@@ -106,7 +130,7 @@ DO $$ BEGIN
       FOREIGN KEY (facility_id) REFERENCES facilities(id)
       ON DELETE SET NULL;
   END IF;
-END $$;
+END $$ LANGUAGE plpgsql;
 
 -- ============================================
 -- FACILITY STAFF PROFILES
@@ -239,7 +263,7 @@ DO $$ BEGIN
       FOREIGN KEY (referral_id) REFERENCES referrals(id)
       ON DELETE SET NULL;
   END IF;
-END $$;
+END $$ LANGUAGE plpgsql;
 
 CREATE INDEX IF NOT EXISTS idx_referrals_pregnancy ON referrals(pregnancy_id);
 CREATE INDEX IF NOT EXISTS idx_referrals_status ON referrals(status);

@@ -4,6 +4,9 @@ const db = require('../src/config/database');
 const bcrypt = require('bcryptjs');
 const { v4: uuidv4 } = require('uuid');
 
+// Increase default timeout for bcrypt hashing in setup hooks
+jest.setTimeout(20000);
+
 let adminToken;
 const TEST_USER = {
   phone: '+254700000099',
