@@ -80,7 +80,7 @@ Each app has a `.env.example` template. Copy to `.env` and fill in secrets:
 
 | File | Key Variables |
 |------|--------------|
-| `backend/.env` | `DB_PASSWORD`, `JWT_SECRET`, `AT_API_KEY` |
+| `backend/.env` | `DB_PASSWORD`, `JWT_SECRET`, `AT_API_KEY`, `AT_USERNAME`, `AT_SENDER_ID` |
 | `chv-app/.env` | `VITE_API_URL` |
 | `mother-app/.env` | `VITE_API_URL` |
 

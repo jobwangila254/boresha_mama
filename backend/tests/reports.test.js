@@ -82,7 +82,7 @@ describe('Report Controller', () => {
 
       expect(query).toHaveBeenCalledWith(
         expect.stringContaining('DATE_TRUNC($1, p.created_at)'),
-        ['monthly', undefined, undefined]
+        ['month', undefined, undefined]
       );
       expect(res.json).toHaveBeenCalledWith(rows);
     });

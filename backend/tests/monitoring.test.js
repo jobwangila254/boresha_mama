@@ -103,7 +103,7 @@ describe('Monitoring Controller', () => {
 
       await recordSelfMonitoring(req, res, next);
 
-      expect(query).toHaveBeenCalledTimes(4);
+      expect(query).toHaveBeenCalledTimes(5);
       expect(query.mock.calls[3][0]).toContain('INSERT INTO notifications');
       expect(res.status).toHaveBeenCalledWith(201);
     });

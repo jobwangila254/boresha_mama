@@ -58,11 +58,12 @@ describe('Referral Controller', () => {
             to_facility_id: 'fac-2',
             priority: 'urgent',
           }],
-        });
+        })
+        .mockResolvedValueOnce({ rows: [{ phone: '+254700000001', first_name: 'Jane', facility_name: 'Test Facility' }] });
 
       await createReferral(req, res, next);
 
-      expect(query).toHaveBeenCalledTimes(2);
+      expect(query).toHaveBeenCalledTimes(3);
       expect(query.mock.calls[0][0]).toContain('SELECT facility_id FROM chv_profiles');
       expect(query.mock.calls[1][0]).toContain('INSERT INTO referrals');
       expect(logger.info).toHaveBeenCalledWith(
@@ -88,7 +89,8 @@ describe('Referral Controller', () => {
         .mockResolvedValueOnce({ rows: [{ facility_id: 'fac-1' }] })
         .mockResolvedValueOnce({
           rows: [{ id: 'ref-2', priority: 'normal' }],
-        });
+        })
+        .mockResolvedValueOnce({ rows: [{ phone: '+254700000001', first_name: 'Jane', facility_name: 'Test Facility' }] });
 
       await createReferral(req, res, next);
 

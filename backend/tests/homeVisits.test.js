@@ -88,8 +88,9 @@ describe('Home Visit Controller', () => {
 
       await createHomeVisit(req, res, next);
 
-      expect(query).toHaveBeenCalledTimes(2);
+      expect(query).toHaveBeenCalledTimes(3);
       expect(query.mock.calls[1][0]).toContain('UPDATE pregnancies');
+      expect(query.mock.calls[2][0]).toContain('SELECT u.phone');
       expect(res.status).toHaveBeenCalledWith(201);
     });
 

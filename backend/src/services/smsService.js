@@ -5,6 +5,7 @@ const db = require('../config/database');
 
 class SmsService {
   constructor() {
+    this.provider = (config.sms.provider || 'africastalking').toLowerCase();
     this.apiKey = config.sms.apiKey;
     this.username = config.sms.username;
     this.baseUrl = this.username === 'sandbox'
@@ -13,6 +14,13 @@ class SmsService {
   }
 
   async sendSms(recipients, message) {
+    if (this.provider !== 'africastalking') {
+      logger.info(`SMS provider set to '${this.provider}'. Logging demo SMS instead of sending.`);
+      const phoneNumbers = Array.isArray(recipients) ? recipients : [recipients];
+      logger.info(`Demo SMS to ${phoneNumbers.join(', ')}: ${message}`);
+      return { status: 'skipped', reason: `provider ${this.provider}` };
+    }
+
     if (!this.apiKey || !this.username || this.apiKey.startsWith('your_') || this.username.startsWith('your_')) {
       logger.warn('SMS credentials not configured. Skipping SMS send.');
       return { status: 'skipped', reason: 'No credentials' };
@@ -31,7 +39,7 @@ class SmsService {
           username: this.username,
           to: formattedNumbers.join(','),
           message,
-          from: 'BoreshaMama',
+          from: config.sms.senderId,
         }),
         {
           headers: {
@@ -44,8 +52,9 @@ class SmsService {
       logger.info(`SMS sent to ${formattedNumbers.length} recipients: ${message.substring(0, 50)}...`);
       return response.data;
     } catch (err) {
-      logger.error('SMS send failed:', err.response?.data || err.message);
-      return { status: 'failed', error: err.message };
+      const errorDetail = err.response?.data || err.message;
+      logger.error('SMS send failed:', errorDetail);
+      return { status: 'failed', error: errorDetail };
     }
   }
 

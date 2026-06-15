@@ -21,6 +21,7 @@ module.exports = {
     provider: process.env.SMS_PROVIDER || 'africastalking',
     apiKey: process.env.AT_API_KEY,
     username: process.env.AT_USERNAME,
+    senderId: process.env.AT_SENDER_ID || 'BoreshaMama',
   },
   upload: {
     dir: process.env.UPLOAD_DIR || 'uploads',
