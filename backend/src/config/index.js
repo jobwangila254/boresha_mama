@@ -30,4 +30,7 @@ module.exports = {
   cors: {
     origin: (process.env.CORS_ORIGIN || 'http://localhost:3000,http://localhost:3001,http://localhost:3002,http://localhost:3003,http://localhost:3004,http://localhost:8081').split(','),
   },
+  bcrypt: {
+    rounds: parseInt(process.env.BCRYPT_ROUNDS, 10) || (process.env.NODE_ENV === 'test' ? 1 : 12),
+  },
 };

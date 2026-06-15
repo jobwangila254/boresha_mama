@@ -2,10 +2,10 @@ const request = require('supertest');
 const app = require('../src/index');
 const db = require('../src/config/database');
 const bcrypt = require('bcryptjs');
+const config = require('../src/config');
 const { v4: uuidv4 } = require('uuid');
 
-// Increase default timeout for bcrypt hashing in setup hooks
-jest.setTimeout(20000);
+// Use default timeout; bcrypt rounds are reduced in test env via config
 
 let adminToken;
 const TEST_USER = {
@@ -22,7 +22,7 @@ beforeAll(async () => {
     `INSERT INTO users (id, phone, national_id, first_name, last_name, password_hash, role, is_verified, is_active)
      VALUES ($1, $2, '99999999', $3, $4, $5, $6, true, true)
      ON CONFLICT (phone) DO UPDATE SET first_name = $3, last_name = $4 RETURNING id`,
-    [id, TEST_USER.phone, TEST_USER.firstName, TEST_USER.lastName, await bcrypt.hash(TEST_USER.password, 12), TEST_USER.role]
+    [id, TEST_USER.phone, TEST_USER.firstName, TEST_USER.lastName, await bcrypt.hash(TEST_USER.password, config.bcrypt.rounds), TEST_USER.role]
   );
   const loginRes = await request(app)
     .post('/api/auth/login')

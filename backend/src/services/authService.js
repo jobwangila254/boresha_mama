@@ -29,7 +29,7 @@ class AuthService {
         throw new AppError('Phone number already registered', 409);
       }
 
-      const passwordHash = await bcrypt.hash(password, 12);
+      const passwordHash = await bcrypt.hash(password, config.bcrypt.rounds);
       const userId = uuidv4();
       await client.query(
         `INSERT INTO users (id, phone, national_id, first_name, last_name, password_hash, role)
@@ -159,7 +159,7 @@ class AuthService {
         throw new AppError('Phone number already registered', 409);
       }
 
-      const passwordHash = await bcrypt.hash(password, 12);
+      const passwordHash = await bcrypt.hash(password, config.bcrypt.rounds);
       const userId = uuidv4();
 
       await client.query(
@@ -240,7 +240,7 @@ class AuthService {
       throw new AppError('Current password is incorrect', 401);
     }
 
-    const newHash = await bcrypt.hash(newPassword, 12);
+    const newHash = await bcrypt.hash(newPassword, config.bcrypt.rounds);
     await db.query('UPDATE users SET password_hash = $1, updated_at = NOW() WHERE id = $2', [newHash, userId]);
 
     logger.info(`Password changed for user: ${userId}`);
