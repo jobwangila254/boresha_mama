@@ -1,0 +1,13 @@
+2026-05-25 16:41:19 [ERROR]: 401 - Invalid phone number or password
+Error: Invalid phone number or password
+    at AuthService.login (/home/r34p3r/Projects/Boresha_mama/backend/src/services/authService.js:79:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async exports.login (/home/r34p3r/Projects/Boresha_mama/backend/src/controllers/authController.js:35:20)
+2026-05-25 17:54:39 [ERROR]: 401 - Invalid phone number or password
+Error: Invalid phone number or password
+    at AuthService.login (/home/r34p3r/Projects/Boresha_mama/backend/src/services/authService.js:89:13)
+    at async exports.login (/home/r34p3r/Projects/Boresha_mama/backend/src/controllers/authController.js:35:20)
+2026-05-25 17:54:46 [ERROR]: 401 - Invalid phone number or password
+Error: Invalid phone number or password
+    at AuthService.login (/home/r34p3r/Projects/Boresha_mama/backend/src/services/authService.js:89:13)
+    at async exports.login (/home/r34p3r/Projects/Boresha_mama/backend/src/controllers/authController.js:35:20)

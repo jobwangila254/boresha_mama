@@ -1,0 +1,250 @@
+2026-05-24 16:33:31 [INFO]: Boresha-Mama API server running on port 5000 in development mode
+2026-05-24 16:33:33 [INFO]: ::ffff:127.0.0.1 - - [24/May/2026:13:33:33 +0000] "GET /api/health HTTP/1.1" 200 122 "-" "curl/7.81.0"
+2026-05-24 16:33:46 [INFO]: User logged in: +254700000000
+2026-05-24 16:33:46 [INFO]: ::ffff:127.0.0.1 - - [24/May/2026:13:33:46 +0000] "POST /api/auth/login HTTP/1.1" 200 428 "-" "curl/7.81.0"
+2026-05-24 16:33:47 [INFO]: Mother registered by county_admin d2c23b10-31a6-4835-9dce-e2a25fa0e64d: +254700000001
+2026-05-24 16:33:47 [INFO]: ::ffff:127.0.0.1 - - [24/May/2026:13:33:47 +0000] "POST /api/auth/register-mother HTTP/1.1" 201 941 "-" "curl/7.81.0"
+2026-05-24 16:35:55 [INFO]: User logged in: +254712345678
+2026-05-24 16:35:55 [INFO]: ::1 - - [24/May/2026:13:35:55 +0000] "POST /api/auth/login HTTP/1.1" 200 410 "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 16:35:55 [INFO]: ::1 - - [24/May/2026:13:35:55 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 16:36:15 [INFO]: ::1 - - [24/May/2026:13:36:15 +0000] "GET /api/auth/profile HTTP/1.1" 200 397 "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 16:36:15 [INFO]: ::1 - - [24/May/2026:13:36:15 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 16:37:15 [INFO]: ::1 - - [24/May/2026:13:37:15 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 16:37:35 [INFO]: ::1 - - [24/May/2026:13:37:35 +0000] "GET /api/appointments HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 16:37:35 [INFO]: ::1 - - [24/May/2026:13:37:35 +0000] "GET /api/facilities HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 16:37:35 [INFO]: ::1 - - [24/May/2026:13:37:35 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 16:42:34 [INFO]: ::1 - - [24/May/2026:13:42:34 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 16:42:58 [INFO]: ::1 - - [24/May/2026:13:42:58 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 16:43:07 [INFO]: ::1 - - [24/May/2026:13:43:07 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 16:43:11 [INFO]: ::1 - - [24/May/2026:13:43:11 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 16:43:19 [INFO]: ::1 - - [24/May/2026:13:43:19 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 16:45:30 [INFO]: ::ffff:127.0.0.1 - - [24/May/2026:13:45:30 +0000] "GET /api/health HTTP/1.1" 200 124 "-" "curl/7.81.0"
+2026-05-24 16:56:47 [INFO]: ::1 - - [24/May/2026:13:56:47 +0000] "GET /api/pregnancies HTTP/1.1" 401 45 "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 16:56:47 [INFO]: ::1 - - [24/May/2026:13:56:47 +0000] "GET /api/auth/profile HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 16:58:40 [INFO]: Boresha-Mama API server running on port 5000 in development mode
+2026-05-24 16:58:42 [INFO]: ::ffff:127.0.0.1 - - [24/May/2026:13:58:42 +0000] "GET /api/health HTTP/1.1" 200 122 "-" "curl/7.81.0"
+2026-05-24 17:02:02 [INFO]: ::ffff:127.0.0.1 - - [24/May/2026:14:02:02 +0000] "GET /api/health-tips HTTP/1.1" 200 2851 "-" "curl/7.81.0"
+2026-05-24 17:11:07 [INFO]: ::1 - - [24/May/2026:14:11:07 +0000] "GET /api/auth/profile HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 17:11:07 [INFO]: ::1 - - [24/May/2026:14:11:07 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 17:11:09 [INFO]: ::1 - - [24/May/2026:14:11:09 +0000] "GET /api/facilities?constituency=Kiminini HTTP/1.1" 200 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 17:12:13 [INFO]: ::1 - - [24/May/2026:14:12:13 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 17:12:15 [INFO]: ::1 - - [24/May/2026:14:12:15 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 17:12:15 [INFO]: ::1 - - [24/May/2026:14:12:15 +0000] "GET /api/appointments HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 17:12:15 [INFO]: ::1 - - [24/May/2026:14:12:15 +0000] "GET /api/facilities HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-24 17:26:32 [INFO]: ::ffff:127.0.0.1 - - [24/May/2026:14:26:32 +0000] "GET /api/health HTTP/1.1" 200 123 "-" "curl/7.81.0"
+2026-05-24 17:45:40 [INFO]: SIGTERM received. Shutting down gracefully...
+2026-05-25 16:40:41 [INFO]: Boresha-Mama API server running on port 5000 in development mode
+2026-05-25 16:41:12 [INFO]: ::ffff:127.0.0.1 - - [25/May/2026:13:41:12 +0000] "GET /api/health HTTP/1.1" 200 121 "-" "curl/7.81.0"
+2026-05-25 16:41:15 [INFO]: ::ffff:127.0.0.1 - - [25/May/2026:13:41:15 +0000] "GET /api/pregnancies HTTP/1.1" 401 45 "-" "curl/7.81.0"
+2026-05-25 16:41:19 [ERROR]: 401 - Invalid phone number or password
+Error: Invalid phone number or password
+    at AuthService.login (/home/r34p3r/Projects/Boresha_mama/backend/src/services/authService.js:79:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async exports.login (/home/r34p3r/Projects/Boresha_mama/backend/src/controllers/authController.js:35:20)
+2026-05-25 16:41:19 [INFO]: ::ffff:127.0.0.1 - - [25/May/2026:13:41:19 +0000] "POST /api/auth/login HTTP/1.1" 401 396 "-" "curl/7.81.0"
+2026-05-25 16:46:05 [INFO]: SIGTERM received. Shutting down gracefully...
+2026-05-25 16:46:08 [INFO]: Boresha-Mama API server running on port 5000 in development mode
+2026-05-25 16:46:09 [INFO]: ::ffff:127.0.0.1 - - [25/May/2026:13:46:09 +0000] "GET /api/health HTTP/1.1" 200 122 "-" "curl/7.81.0"
+2026-05-25 16:52:31 [INFO]: ::1 - - [25/May/2026:13:52:31 +0000] "GET /api/auth/profile HTTP/1.1" 200 697 "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 16:52:31 [INFO]: ::1 - - [25/May/2026:13:52:31 +0000] "GET /api/pregnancies HTTP/1.1" 200 652 "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 16:53:29 [INFO]: ::1 - - [25/May/2026:13:53:29 +0000] "GET /api/pregnancies/3fc002bf-eadc-425d-953f-fc2bb4754dff HTTP/1.1" 200 595 "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 16:53:29 [INFO]: ::1 - - [25/May/2026:13:53:29 +0000] "GET /api/home-visits?pregnancyId=3fc002bf-eadc-425d-953f-fc2bb4754dff HTTP/1.1" 200 2 "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 16:54:29 [INFO]: SIGTERM received. Shutting down gracefully...
+2026-05-25 17:10:34 [INFO]: Boresha-Mama API server running on port 5000 in development mode
+2026-05-25 17:10:36 [INFO]: ::ffff:127.0.0.1 - - [25/May/2026:14:10:36 +0000] "GET /api/health HTTP/1.1" 200 122 "-" "curl/7.81.0"
+2026-05-25 17:10:45 [INFO]: ::1 - - [25/May/2026:14:10:45 +0000] "GET /api/pregnancies HTTP/1.1" 200 2 "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:10:45 [INFO]: ::1 - - [25/May/2026:14:10:45 +0000] "GET /api/auth/profile HTTP/1.1" 200 449 "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:12:03 [INFO]: ::1 - - [25/May/2026:14:12:03 +0000] "GET /api/auth/profile HTTP/1.1" 200 697 "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:12:03 [INFO]: ::1 - - [25/May/2026:14:12:03 +0000] "GET /api/pregnancies HTTP/1.1" 200 652 "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:12:08 [INFO]: ::1 - - [25/May/2026:14:12:08 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:12:10 [INFO]: ::1 - - [25/May/2026:14:12:10 +0000] "GET /api/pregnancies/3fc002bf-eadc-425d-953f-fc2bb4754dff HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:12:10 [INFO]: ::1 - - [25/May/2026:14:12:10 +0000] "GET /api/home-visits?pregnancyId=3fc002bf-eadc-425d-953f-fc2bb4754dff HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:12:17 [INFO]: ::1 - - [25/May/2026:14:12:17 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:12:18 [INFO]: ::1 - - [25/May/2026:14:12:18 +0000] "GET /api/facilities HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:14:33 [INFO]: ::1 - - [25/May/2026:14:14:33 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:14:33 [INFO]: ::1 - - [25/May/2026:14:14:33 +0000] "GET /api/facilities HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:14:38 [INFO]: ::1 - - [25/May/2026:14:14:38 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:14:38 [INFO]: ::1 - - [25/May/2026:14:14:38 +0000] "GET /api/facilities HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:14:46 [INFO]: ::1 - - [25/May/2026:14:14:46 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:14:59 [INFO]: ::1 - - [25/May/2026:14:14:59 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:15:04 [INFO]: ::1 - - [25/May/2026:14:15:04 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:18:10 [INFO]: ::1 - - [25/May/2026:14:18:10 +0000] "GET /api/pregnancies HTTP/1.1" 200 2 "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:18:14 [INFO]: ::1 - - [25/May/2026:14:18:14 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:18:14 [INFO]: ::1 - - [25/May/2026:14:18:14 +0000] "GET /api/appointments HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:18:14 [INFO]: ::1 - - [25/May/2026:14:18:14 +0000] "GET /api/facilities HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:18:27 [INFO]: ::1 - - [25/May/2026:14:18:27 +0000] "GET /api/facilities?constituency=Kiminini HTTP/1.1" 200 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:20:10 [INFO]: ::1 - - [25/May/2026:14:20:10 +0000] "GET /api/auth/profile HTTP/1.1" 200 449 "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:20:11 [INFO]: ::1 - - [25/May/2026:14:20:11 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:24:31 [INFO]: ::1 - - [25/May/2026:14:24:31 +0000] "GET /api/auth/profile HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:24:32 [INFO]: ::1 - - [25/May/2026:14:24:32 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:33:49 [INFO]: Boresha-Mama API server running on port 5000 in development mode
+2026-05-25 17:33:50 [INFO]: ::ffff:127.0.0.1 - - [25/May/2026:14:33:50 +0000] "GET /api/health HTTP/1.1" 200 121 "-" "curl/7.81.0"
+2026-05-25 17:38:10 [INFO]: Boresha-Mama API server running on port 5000 in development mode
+2026-05-25 17:38:12 [INFO]: ::ffff:127.0.0.1 - - [25/May/2026:14:38:12 +0000] "GET /api/health HTTP/1.1" 200 122 "-" "curl/7.81.0"
+2026-05-25 17:38:18 [INFO]: User logged in: +254700000002
+2026-05-25 17:38:18 [INFO]: ::ffff:127.0.0.1 - - [25/May/2026:14:38:18 +0000] "POST /api/auth/login HTTP/1.1" 200 414 "-" "curl/7.81.0"
+2026-05-25 17:38:18 [INFO]: ::ffff:127.0.0.1 - - [25/May/2026:14:38:18 +0000] "GET /api/auth/profile HTTP/1.1" 200 776 "-" "curl/7.81.0"
+2026-05-25 17:38:18 [INFO]: ::ffff:127.0.0.1 - - [25/May/2026:14:38:18 +0000] "GET /api/pregnancies HTTP/1.1" 200 799 "-" "curl/7.81.0"
+2026-05-25 17:38:32 [INFO]: ::1 - - [25/May/2026:14:38:32 +0000] "GET /api/auth/profile HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:38:32 [INFO]: ::1 - - [25/May/2026:14:38:32 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:39:11 [INFO]: ::1 - - [25/May/2026:14:39:11 +0000] "GET /api/auth/profile HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:39:12 [INFO]: ::1 - - [25/May/2026:14:39:12 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:41:32 [INFO]: ::1 - - [25/May/2026:14:41:32 +0000] "GET /api/auth/profile HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:41:33 [INFO]: ::1 - - [25/May/2026:14:41:33 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 17:53:25 [INFO]: Boresha-Mama API server running on port 5000 in development mode
+2026-05-25 17:53:26 [INFO]: ::ffff:127.0.0.1 - - [25/May/2026:14:53:26 +0000] "GET /api/health HTTP/1.1" 200 122 "-" "curl/7.81.0"
+2026-05-25 17:53:40 [INFO]: SIGTERM received. Shutting down gracefully...
+2026-05-25 17:54:24 [INFO]: Boresha-Mama API server running on port 5000 in development mode
+2026-05-25 17:54:27 [INFO]: ::ffff:127.0.0.1 - - [25/May/2026:14:54:27 +0000] "GET /api/health HTTP/1.1" 200 122 "-" "curl/7.81.0"
+2026-05-25 17:54:32 [INFO]: User logged in: +254700000002
+2026-05-25 17:54:32 [INFO]: ::ffff:127.0.0.1 - - [25/May/2026:14:54:32 +0000] "POST /api/auth/login HTTP/1.1" 200 414 "-" "curl/7.81.0"
+2026-05-25 17:54:32 [INFO]: ::ffff:127.0.0.1 - - [25/May/2026:14:54:32 +0000] "GET /api/pregnancies HTTP/1.1" 200 799 "-" "curl/7.81.0"
+2026-05-25 17:54:39 [ERROR]: 401 - Invalid phone number or password
+Error: Invalid phone number or password
+    at AuthService.login (/home/r34p3r/Projects/Boresha_mama/backend/src/services/authService.js:89:13)
+    at async exports.login (/home/r34p3r/Projects/Boresha_mama/backend/src/controllers/authController.js:35:20)
+2026-05-25 17:54:39 [INFO]: ::ffff:127.0.0.1 - - [25/May/2026:14:54:39 +0000] "POST /api/auth/login HTTP/1.1" 401 312 "-" "curl/7.81.0"
+2026-05-25 17:54:39 [INFO]: ::ffff:127.0.0.1 - - [25/May/2026:14:54:39 +0000] "GET /api/pregnancies HTTP/1.1" 401 45 "-" "curl/7.81.0"
+2026-05-25 17:54:46 [ERROR]: 401 - Invalid phone number or password
+Error: Invalid phone number or password
+    at AuthService.login (/home/r34p3r/Projects/Boresha_mama/backend/src/services/authService.js:89:13)
+    at async exports.login (/home/r34p3r/Projects/Boresha_mama/backend/src/controllers/authController.js:35:20)
+2026-05-25 17:54:46 [INFO]: ::ffff:127.0.0.1 - - [25/May/2026:14:54:46 +0000] "POST /api/auth/login HTTP/1.1" 401 312 "-" "curl/7.81.0"
+2026-05-25 17:55:02 [INFO]: User logged in: +254712345678
+2026-05-25 17:55:02 [INFO]: ::ffff:127.0.0.1 - - [25/May/2026:14:55:02 +0000] "POST /api/auth/login HTTP/1.1" 200 410 "-" "curl/7.81.0"
+2026-05-25 17:55:02 [INFO]: ::ffff:127.0.0.1 - - [25/May/2026:14:55:02 +0000] "GET /api/pregnancies HTTP/1.1" 200 792 "-" "curl/7.81.0"
+2026-05-25 18:20:10 [INFO]: ::1 - - [25/May/2026:15:20:10 +0000] "GET /api/auth/profile HTTP/1.1" 200 725 "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 18:20:10 [INFO]: ::1 - - [25/May/2026:15:20:10 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 18:20:10 [INFO]: ::1 - - [25/May/2026:15:20:10 +0000] "GET /api/pregnancies/timeline/9638c5f7-49df-4f6f-ad9a-853e2b2c8554 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 18:20:15 [INFO]: ::1 - - [25/May/2026:15:20:15 +0000] "GET /api/auth/profile HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 18:20:15 [INFO]: ::1 - - [25/May/2026:15:20:15 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 18:20:15 [INFO]: ::1 - - [25/May/2026:15:20:15 +0000] "GET /api/pregnancies/timeline/9638c5f7-49df-4f6f-ad9a-853e2b2c8554 HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-25 18:22:54 [INFO]: SIGTERM received. Shutting down gracefully...
+2026-05-27 17:12:55 [INFO]: Boresha-Mama API server running on port 5000 in development mode
+2026-05-27 17:12:57 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:14:12:57 +0000] "GET /api/health HTTP/1.1" 200 122 "-" "curl/7.81.0"
+2026-05-27 17:13:01 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:14:13:01 +0000] "GET /api/health HTTP/1.1" 200 122 "-" "curl/7.81.0"
+2026-05-27 17:13:16 [INFO]: SIGTERM received. Shutting down gracefully...
+2026-05-27 18:11:19 [INFO]: Boresha-Mama API server running on port 5000 in development mode
+2026-05-27 18:11:20 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:11:20 +0000] "GET /api/health HTTP/1.1" 200 122 "-" "curl/7.81.0"
+2026-05-27 18:11:25 [INFO]: User logged in: kiminini@boreshamama.go.ke
+2026-05-27 18:11:25 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:11:25 +0000] "POST /api/auth/login HTTP/1.1" 200 443 "-" "curl/7.81.0"
+2026-05-27 18:11:26 [INFO]: User logged in: +254700000000
+2026-05-27 18:11:26 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:11:26 +0000] "POST /api/auth/login HTTP/1.1" 200 428 "-" "curl/7.81.0"
+2026-05-27 18:12:49 [INFO]: User logged in: kiminini@boreshamama.go.ke
+2026-05-27 18:12:49 [INFO]: ::1 - - [27/May/2026:15:12:49 +0000] "POST /api/auth/login HTTP/1.1" 200 443 "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:12:49 [INFO]: ::1 - - [27/May/2026:15:12:49 +0000] "GET /api/auth/profile HTTP/1.1" 200 887 "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:12:49 [INFO]: ::1 - - [27/May/2026:15:12:49 +0000] "GET /api/reports/dashboard HTTP/1.1" 200 62 "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:12:49 [INFO]: ::1 - - [27/May/2026:15:12:49 +0000] "GET /api/appointments?status=scheduled HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:12:49 [INFO]: ::1 - - [27/May/2026:15:12:49 +0000] "GET /api/appointments?status=scheduled HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:12:49 [INFO]: ::1 - - [27/May/2026:15:12:49 +0000] "GET /api/referrals?status=pending HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:12:49 [INFO]: ::1 - - [27/May/2026:15:12:49 +0000] "GET /api/reports/dashboard HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:12:49 [INFO]: ::1 - - [27/May/2026:15:12:49 +0000] "GET /api/referrals?status=pending HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:13:02 [INFO]: ::1 - - [27/May/2026:15:13:02 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:13:02 [INFO]: ::1 - - [27/May/2026:15:13:02 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:13:13 [INFO]: ::1 - - [27/May/2026:15:13:13 +0000] "GET /api/pregnancies/3a10b9f4-348d-4c75-aee9-03e8a0d108bf HTTP/1.1" 200 650 "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:13:13 [INFO]: ::1 - - [27/May/2026:15:13:13 +0000] "GET /api/pregnancies/3a10b9f4-348d-4c75-aee9-03e8a0d108bf HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:13:13 [INFO]: ::1 - - [27/May/2026:15:13:13 +0000] "GET /api/pregnancies/timeline/3a10b9f4-348d-4c75-aee9-03e8a0d108bf HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:13:13 [INFO]: ::1 - - [27/May/2026:15:13:13 +0000] "GET /api/pregnancies/timeline/3a10b9f4-348d-4c75-aee9-03e8a0d108bf HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:16:06 [INFO]: ::1 - - [27/May/2026:15:16:06 +0000] "GET /api/referrals?status=pending HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:16:06 [INFO]: ::1 - - [27/May/2026:15:16:06 +0000] "GET /api/appointments?status=scheduled HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:16:06 [INFO]: ::1 - - [27/May/2026:15:16:06 +0000] "GET /api/referrals?status=pending HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:16:06 [INFO]: ::1 - - [27/May/2026:15:16:06 +0000] "GET /api/reports/dashboard HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:16:07 [INFO]: ::1 - - [27/May/2026:15:16:07 +0000] "GET /api/appointments?status=scheduled HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:16:07 [INFO]: ::1 - - [27/May/2026:15:16:07 +0000] "GET /api/reports/dashboard HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:16:16 [INFO]: ::1 - - [27/May/2026:15:16:16 +0000] "GET /api/appointments?status=scheduled HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:16:16 [INFO]: ::1 - - [27/May/2026:15:16:16 +0000] "GET /api/appointments?status=scheduled HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:16:17 [INFO]: ::1 - - [27/May/2026:15:16:17 +0000] "GET /api/referrals?status=pending HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:16:17 [INFO]: ::1 - - [27/May/2026:15:16:17 +0000] "GET /api/referrals?status=pending HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:16:19 [INFO]: ::1 - - [27/May/2026:15:16:19 +0000] "GET /api/reports/dashboard HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:16:19 [INFO]: ::1 - - [27/May/2026:15:16:19 +0000] "GET /api/reports/dashboard HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:16:25 [INFO]: ::1 - - [27/May/2026:15:16:25 +0000] "GET /api/reports/export?type=pregnancies&format=csv HTTP/1.1" 200 670 "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:20:11 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:20:11 +0000] "POST /api/health HTTP/1.1" 404 150 "-" "curl/7.81.0"
+2026-05-27 18:21:41 [INFO]: SIGTERM received. Shutting down gracefully...
+2026-05-27 18:21:43 [INFO]: Boresha-Mama API server running on port 5000 in development mode
+2026-05-27 18:21:45 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:21:45 +0000] "GET /api/health HTTP/1.1" 200 122 "-" "curl/7.81.0"
+2026-05-27 18:22:03 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:22:03 +0000] "GET /api/reports/export?type=pregnancies&format=csv HTTP/1.1" 401 45 "-" "curl/7.81.0"
+2026-05-27 18:22:07 [INFO]: User logged in: kiminini@boreshamama.go.ke
+2026-05-27 18:22:07 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:22:07 +0000] "POST /api/auth/login HTTP/1.1" 200 443 "-" "curl/7.81.0"
+2026-05-27 18:22:07 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:22:07 +0000] "GET /api/reports/export?type=pregnancies&format=csv HTTP/1.1" 200 391 "-" "curl/7.81.0"
+2026-05-27 18:22:23 [INFO]: SIGTERM received. Shutting down gracefully...
+2026-05-27 18:22:25 [INFO]: Boresha-Mama API server running on port 5000 in development mode
+2026-05-27 18:22:28 [INFO]: User logged in: kiminini@boreshamama.go.ke
+2026-05-27 18:22:28 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:22:28 +0000] "POST /api/auth/login HTTP/1.1" 200 443 "-" "curl/7.81.0"
+2026-05-27 18:22:28 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:22:28 +0000] "GET /api/reports/export?type=pregnancies&format=csv HTTP/1.1" 200 265 "-" "curl/7.81.0"
+2026-05-27 18:23:15 [INFO]: User logged in: +254700000002
+2026-05-27 18:23:15 [INFO]: ::1 - - [27/May/2026:15:23:15 +0000] "POST /api/auth/login HTTP/1.1" 200 414 "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:23:15 [INFO]: ::1 - - [27/May/2026:15:23:15 +0000] "GET /api/auth/profile HTTP/1.1" 200 742 "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:23:16 [INFO]: ::1 - - [27/May/2026:15:23:16 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:23:16 [INFO]: ::1 - - [27/May/2026:15:23:16 +0000] "GET /api/pregnancies/timeline/3a10b9f4-348d-4c75-aee9-03e8a0d108bf HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:23:30 [INFO]: ::1 - - [27/May/2026:15:23:30 +0000] "PUT /api/auth/profile HTTP/1.1" 200 42 "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:24:40 [INFO]: SIGTERM received. Shutting down gracefully...
+2026-05-27 18:24:41 [INFO]: Boresha-Mama API server running on port 5000 in development mode
+2026-05-27 18:24:44 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:24:44 +0000] "GET /api/health HTTP/1.1" 200 122 "-" "curl/7.81.0"
+2026-05-27 18:24:51 [INFO]: User logged in: +254700000000
+2026-05-27 18:24:51 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:24:51 +0000] "POST /api/auth/login HTTP/1.1" 200 428 "-" "curl/7.81.0"
+2026-05-27 18:24:52 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:24:52 +0000] "GET /api/auth/profile HTTP/1.1" 200 444 "-" "curl/7.81.0"
+2026-05-27 18:24:57 [INFO]: User logged in: kiminini@boreshamama.go.ke
+2026-05-27 18:24:57 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:24:57 +0000] "POST /api/auth/login HTTP/1.1" 200 443 "-" "curl/7.81.0"
+2026-05-27 18:24:57 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:24:57 +0000] "GET /api/pregnancies HTTP/1.1" 200 863 "-" "curl/7.81.0"
+2026-05-27 18:25:02 [INFO]: User logged in: kiminini@boreshamama.go.ke
+2026-05-27 18:25:02 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:25:02 +0000] "POST /api/auth/login HTTP/1.1" 200 443 "-" "curl/7.81.0"
+2026-05-27 18:25:02 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:25:02 +0000] "GET /api/pregnancies HTTP/1.1" 200 863 "-" "curl/7.81.0"
+2026-05-27 18:25:02 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:25:02 +0000] "GET /api/pregnancies/3a10b9f4-348d-4c75-aee9-03e8a0d108bf HTTP/1.1" 200 769 "-" "curl/7.81.0"
+2026-05-27 18:25:07 [INFO]: User logged in: kiminini@boreshamama.go.ke
+2026-05-27 18:25:07 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:25:07 +0000] "POST /api/auth/login HTTP/1.1" 200 443 "-" "curl/7.81.0"
+2026-05-27 18:25:07 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:25:07 +0000] "GET /api/reports/export?type=pregnancies&format=csv HTTP/1.1" 200 265 "-" "curl/7.81.0"
+2026-05-27 18:38:37 [INFO]: SIGTERM received. Shutting down gracefully...
+2026-05-27 18:38:40 [INFO]: Boresha-Mama API server running on port 5000 in development mode
+2026-05-27 18:38:41 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:38:41 +0000] "GET /api/health HTTP/1.1" 200 122 "-" "curl/7.81.0"
+2026-05-27 18:38:50 [INFO]: User logged in: kiminini@boreshamama.go.ke
+2026-05-27 18:38:50 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:38:50 +0000] "POST /api/auth/login HTTP/1.1" 200 443 "-" "curl/7.81.0"
+2026-05-27 18:38:51 [INFO]: User logged in: +254700000000
+2026-05-27 18:38:51 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:38:51 +0000] "POST /api/auth/login HTTP/1.1" 200 428 "-" "curl/7.81.0"
+2026-05-27 18:38:52 [INFO]: User logged in: kiminini@boreshamama.go.ke
+2026-05-27 18:38:52 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:38:52 +0000] "POST /api/auth/login HTTP/1.1" 200 443 "-" "curl/7.81.0"
+2026-05-27 18:38:52 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:38:52 +0000] "GET /api/pregnancies HTTP/1.1" 200 863 "-" "curl/7.81.0"
+2026-05-27 18:38:54 [INFO]: User logged in: +254700000000
+2026-05-27 18:38:54 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:38:54 +0000] "POST /api/auth/login HTTP/1.1" 200 428 "-" "curl/7.81.0"
+2026-05-27 18:38:54 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:15:38:54 +0000] "GET /api/auth/profile HTTP/1.1" 200 444 "-" "curl/7.81.0"
+2026-05-27 18:45:07 [INFO]: ::1 - - [27/May/2026:15:45:07 +0000] "GET /api/pregnancies HTTP/1.1" 200 863 "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:45:07 [INFO]: ::1 - - [27/May/2026:15:45:07 +0000] "GET /api/pregnancies/timeline/3a10b9f4-348d-4c75-aee9-03e8a0d108bf HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:45:24 [INFO]: ::1 - - [27/May/2026:15:45:24 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:45:24 [INFO]: ::1 - - [27/May/2026:15:45:24 +0000] "GET /api/pregnancies/timeline/3a10b9f4-348d-4c75-aee9-03e8a0d108bf HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:46:41 [INFO]: ::1 - - [27/May/2026:15:46:41 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:46:41 [INFO]: ::1 - - [27/May/2026:15:46:41 +0000] "GET /api/pregnancies/timeline/3a10b9f4-348d-4c75-aee9-03e8a0d108bf HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:46:50 [INFO]: ::1 - - [27/May/2026:15:46:50 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:46:50 [INFO]: ::1 - - [27/May/2026:15:46:50 +0000] "GET /api/pregnancies/timeline/3a10b9f4-348d-4c75-aee9-03e8a0d108bf HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:54:31 [INFO]: ::1 - - [27/May/2026:15:54:31 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:54:31 [INFO]: ::1 - - [27/May/2026:15:54:31 +0000] "GET /api/pregnancies/timeline/3a10b9f4-348d-4c75-aee9-03e8a0d108bf HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:54:46 [INFO]: ::1 - - [27/May/2026:15:54:46 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:54:46 [INFO]: ::1 - - [27/May/2026:15:54:46 +0000] "GET /api/pregnancies/timeline/3a10b9f4-348d-4c75-aee9-03e8a0d108bf HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:55:16 [INFO]: ::1 - - [27/May/2026:15:55:16 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 18:55:16 [INFO]: ::1 - - [27/May/2026:15:55:16 +0000] "GET /api/pregnancies/timeline/3a10b9f4-348d-4c75-aee9-03e8a0d108bf HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:14:32 [INFO]: ::1 - - [27/May/2026:16:14:32 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:14:32 [INFO]: ::1 - - [27/May/2026:16:14:32 +0000] "GET /api/pregnancies/timeline/3a10b9f4-348d-4c75-aee9-03e8a0d108bf HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:14:35 [INFO]: ::1 - - [27/May/2026:16:14:35 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:14:35 [INFO]: ::1 - - [27/May/2026:16:14:35 +0000] "GET /api/pregnancies/timeline/3a10b9f4-348d-4c75-aee9-03e8a0d108bf HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:14:39 [INFO]: ::1 - - [27/May/2026:16:14:39 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:14:39 [INFO]: ::1 - - [27/May/2026:16:14:39 +0000] "GET /api/pregnancies/timeline/3a10b9f4-348d-4c75-aee9-03e8a0d108bf HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:14:44 [INFO]: ::1 - - [27/May/2026:16:14:44 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:14:44 [INFO]: ::1 - - [27/May/2026:16:14:44 +0000] "GET /api/pregnancies/timeline/3a10b9f4-348d-4c75-aee9-03e8a0d108bf HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:15:42 [INFO]: ::1 - - [27/May/2026:16:15:42 +0000] "GET /api/auth/profile HTTP/1.1" 200 700 "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:15:42 [INFO]: ::1 - - [27/May/2026:16:15:42 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:17:13 [INFO]: ::1 - - [27/May/2026:16:17:13 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:17:21 [INFO]: ::1 - - [27/May/2026:16:17:21 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:17:24 [INFO]: ::1 - - [27/May/2026:16:17:24 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:17:57 [INFO]: ::1 - - [27/May/2026:16:17:57 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:17:57 [INFO]: ::1 - - [27/May/2026:16:17:57 +0000] "GET /api/pregnancies/timeline/3a10b9f4-348d-4c75-aee9-03e8a0d108bf HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:20:38 [INFO]: ::1 - - [27/May/2026:16:20:38 +0000] "GET /api/auth/profile HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:20:38 [INFO]: ::1 - - [27/May/2026:16:20:38 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:20:43 [INFO]: ::1 - - [27/May/2026:16:20:43 +0000] "GET /api/auth/profile HTTP/1.1" 200 910 "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:20:51 [INFO]: ::1 - - [27/May/2026:16:20:51 +0000] "GET /api/auth/profile HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:20:51 [INFO]: ::1 - - [27/May/2026:16:20:51 +0000] "GET /api/reports/dashboard HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:20:51 [INFO]: ::1 - - [27/May/2026:16:20:51 +0000] "GET /api/reports/dashboard HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:21:04 [INFO]: ::1 - - [27/May/2026:16:21:04 +0000] "GET /api/auth/users?role=chv HTTP/1.1" 200 531 "http://localhost:3003/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:21:04 [INFO]: ::1 - - [27/May/2026:16:21:04 +0000] "GET /api/auth/users?role=chv HTTP/1.1" 304 - "http://localhost:3003/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:22:06 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:16:22:06 +0000] "GET /assets/transnzoia-logo.webp HTTP/1.1" 404 166 "http://localhost:3002/login" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+2026-05-27 19:22:06 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:16:22:06 +0000] "GET /assets/transnzoia-logo.webp HTTP/1.1" 404 166 "http://localhost:3002/reports" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:22:07 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:16:22:07 +0000] "GET /assets/transnzoia-logo.webp HTTP/1.1" 404 166 "http://localhost:3003/login" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
+2026-05-27 19:22:08 [INFO]: ::ffff:127.0.0.1 - - [27/May/2026:16:22:08 +0000] "GET /assets/transnzoia-logo.webp HTTP/1.1" 404 166 "http://localhost:3003/users" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+2026-05-27 19:37:24 [INFO]: SIGTERM received. Shutting down gracefully...
