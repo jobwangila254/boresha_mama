@@ -84,14 +84,15 @@ async function seed() {
 
     // Seed facility logins (reception desks) with varied passwords/phones
     const fsFacilities = [
-      { name: 'Kiminini Health Centre', phone: '+254722500102', first: 'Reception', last: 'Kiminini', pass: 'RecKimi24' },
-      { name: 'Matunda Dispensary', phone: '+254722700203', first: 'Reception', last: 'Matunda', pass: 'RecMatu78' },
-      { name: 'Sikhendu Dispensary', phone: '+254722900304', first: 'Reception', last: 'Sikhendu', pass: 'RecSikh56' },
-      { name: 'Kitale County Referral Hospital', phone: '+254722300405', first: 'Reception', last: 'Kitale', pass: 'RecKita12' },
+      { name: 'Kiminini Health Centre', phone: '+254722500102', first: 'Reception', last: 'Kiminini' },
+      { name: 'Matunda Dispensary', phone: '+254722700203', first: 'Reception', last: 'Matunda' },
+      { name: 'Sikhendu Dispensary', phone: '+254722900304', first: 'Reception', last: 'Sikhendu' },
+      { name: 'Kitale County Referral Hospital', phone: '+254722300405', first: 'Reception', last: 'Kitale' },
     ];
     const fsHashes = {};
     for (const fs of fsFacilities) {
-      fsHashes[fs.name] = await bcrypt.hash(fs.pass, 12);
+      const shortName = fs.name.split(' ')[0];
+      fsHashes[fs.name] = await bcrypt.hash(`${shortName}@123`, 12);
     }
     const kimiFacility = await client.query(
       "SELECT id FROM facilities WHERE name = 'Kiminini Health Centre' LIMIT 1"
