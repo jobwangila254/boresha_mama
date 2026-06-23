@@ -161,12 +161,14 @@ Each frontend folder has a `vercel.json` with SPA rewrites. Connect each one as 
 
 ## Credentials (Dev/Test)
 
-| Role | Login | Password |
-|---|---|---|
-| County Admin | admin@boreshamama.go.ke | Admin@123 |
-| Facility Staff | kiminini@boreshamama.go.ke | Kiminini@123 |
-| CHV | +254711000001 | CHV-001 |
-| Mother | +254701000001 | Mary@123 |
+
+| Role           | Login                                                           | Password     |
+| -------------- | --------------------------------------------------------------- | ------------ |
+| County Admin   | [admin@boreshamama.go.ke](mailto:admin@boreshamama.go.ke)       | Admin@123    |
+| Facility Staff | [kiminini@boreshamama.go.ke](mailto:kiminini@boreshamama.go.ke) | Kiminini@123 |
+| CHV            | +254711000001                                                   | CHV-001      |
+| Mother         | +254701000013                                                   | Nancy@123    |
+
 
 These are seeded users with realistic-looking data. In production, obviously change these.
 
