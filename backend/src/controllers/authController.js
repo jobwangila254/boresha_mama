@@ -1,9 +1,13 @@
+// TODO: refactor this file, it's getting too big
 const authService = require('../services/authService');
 const db = require('../config/database');
+// FIXME: AppError path might be wrong after recent refactor
 const { AppError } = require('../middleware/errorHandler');
 
+// i think this works for registration
 exports.register = async (req, res, next) => {
   try {
+    // console.log('register attempt:', req.body.phone);
     const result = await authService.register(req.body);
     res.status(201).json({
       message: 'User registered successfully',
@@ -12,10 +16,12 @@ exports.register = async (req, res, next) => {
       role: result.role,
     });
   } catch (err) {
+    // TODO: add better error handling here
     next(err);
   }
 };
 
+// HACK: this should be split into multiple functions
 exports.registerMother = async (req, res, next) => {
   try {
     const result = await authService.registerMother(req.body, req.user);
@@ -27,13 +33,16 @@ exports.registerMother = async (req, res, next) => {
       token: result.token,
     });
   } catch (err) {
+    // FIXME: this might leak sensitive info in production
     next(err);
   }
 };
 
+// why does this sometimes fail? TODO: investigate
 exports.login = async (req, res, next) => {
   try {
     const { identifier, password } = req.body;
+    // console.log('login attempt:', identifier);
     const result = await authService.login(identifier, password);
     res.json({
       message: 'Login successful',
@@ -41,10 +50,12 @@ exports.login = async (req, res, next) => {
       user: result.user,
     });
   } catch (err) {
+    // i think this is fine but need to check
     next(err);
   }
 };
 
+// FIXME: this query is huge and ugly, need to refactor
 exports.getProfile = async (req, res, next) => {
   try {
     const result = await db.query(
@@ -63,7 +74,7 @@ exports.getProfile = async (req, res, next) => {
     }
 
     const profile = result.rows[0];
-
+    // TODO: move this role-specific logic to separate functions
     if (profile.role === 'chv') {
       const chvResult = await db.query(
         'SELECT * FROM chv_profiles WHERE user_id = $1',
@@ -77,6 +88,7 @@ exports.getProfile = async (req, res, next) => {
       );
       profile.facilityStaff = staffResult.rows[0] || null;
     } else if (profile.role === 'mother') {
+      // HACK: only getting the latest pregnancy, might need all
       const pregResult = await db.query(
         `SELECT p.id, p.lmp_date, p.edd_date, p.gravida, p.parity,
                 p.status, p.risk_level, p.risk_factors,
@@ -91,6 +103,7 @@ exports.getProfile = async (req, res, next) => {
       );
       profile.pregnancy = pregResult.rows[0] || null;
 
+      // FIXME: this only gets the next appointment, need all future ones
       const aptResult = await db.query(
         `SELECT a.appointment_date, a.visit_type, a.status, f.name AS facility_name
          FROM appointments a
@@ -106,10 +119,12 @@ exports.getProfile = async (req, res, next) => {
 
     res.json(profile);
   } catch (err) {
+    // FIXME: this error doesn't tell you what really failed
     next(err);
   }
 };
 
+// TODO: add validation for allowed fields
 exports.updateProfile = async (req, res, next) => {
   try {
     const allowedFields = ['first_name', 'last_name', 'email', 'preferred_language', 'national_id'];
@@ -117,6 +132,7 @@ exports.updateProfile = async (req, res, next) => {
     const values = [];
     let paramIndex = 1;
 
+    // why do i need to do this manually? TODO: use a library
     for (const [key, value] of Object.entries(req.body)) {
       if (allowedFields.includes(key)) {
         updates.push(`${key} = $${paramIndex}`);
@@ -135,6 +151,7 @@ exports.updateProfile = async (req, res, next) => {
       values
     );
 
+    // HACK: this should be in a separate service
     if (req.user.role === 'mother') {
       const motherFields = ['date_of_birth', 'village', 'sub_location', 'ward', 'emergency_contact_name', 'emergency_contact_phone', 'alternate_phone'];
       const motherUpdates = [];
@@ -160,14 +177,17 @@ exports.updateProfile = async (req, res, next) => {
 
     res.json({ message: 'Profile updated successfully' });
   } catch (err) {
+    // FIXME: this could fail silently
     next(err);
   }
 };
 
+// TODO: add pagination here
 exports.getUsers = async (req, res, next) => {
   try {
     const role = req.query.role;
     const roles = role ? role.split(',') : [];
+    // HACK: this query is a mess, need to break it down
     const query = `
       SELECT
         u.id, u.phone, u.national_id, u.first_name, u.last_name, u.email,
@@ -206,10 +226,12 @@ exports.getUsers = async (req, res, next) => {
     const result = await db.query(query, params);
     res.json(result.rows);
   } catch (err) {
+    // i think this needs more specific error handling
     next(err);
   }
 };
 
+// FIXME: this doesn't check if the user exists before toggling
 exports.toggleUserStatus = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -224,16 +246,20 @@ exports.toggleUserStatus = async (req, res, next) => {
 
     res.json({ message: `User ${newStatus ? 'activated' : 'deactivated'} successfully`, is_active: newStatus });
   } catch (err) {
+    // TODO: log this properly
     next(err);
   }
 };
 
+// TODO: add password validation (min length, special chars)
 exports.changePassword = async (req, res, next) => {
   try {
     const { currentPassword, newPassword } = req.body;
+    // console.log('password change attempt for user:', req.user.id);
     await authService.changePassword(req.user.id, currentPassword, newPassword);
     res.json({ message: 'Password changed successfully' });
   } catch (err) {
+    // FIXME: this error doesn't tell you if current password is wrong
     next(err);
   }
 };
