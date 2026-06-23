@@ -18,6 +18,7 @@
     "demo:start": "bash demo.sh start",
     "demo": "bash demo.sh",
     "lint": "cd backend && npm run lint",
+    "postinstall": "cd backend && npm install --production",
     "start": "cd backend && npm start",
     "seed:admin": "cd backend && node src/migrations/seed-admin.js",
     "db:reset": "cd backend && node -e \"const {Pool}=require('pg');const p=new Pool({host:process.env.DB_HOST||'localhost',port:process.env.DB_PORT||5432,database:process.env.DB_NAME||'boresha_mama',user:process.env.DB_USER||'postgres',password:process.env.DB_PASSWORD});p.query('DROP SCHEMA IF EXISTS public CASCADE;CREATE SCHEMA public;').then(()=>{console.log('DB reset OK');process.exit(0)}).catch(e=>{console.error(e.message);process.exit(1)}) \""
