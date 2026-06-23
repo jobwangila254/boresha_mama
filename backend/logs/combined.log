@@ -3382,3 +3382,4 @@ Error: Invalid email/phone or password
 2026-06-22 16:46:19 [INFO]: ::1 - - [22/Jun/2026:13:46:19 +0000] "POST /api/auth/login HTTP/1.1" 200 428 "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
 2026-06-22 16:46:19 [INFO]: ::1 - - [22/Jun/2026:13:46:19 +0000] "GET /api/reports/dashboard HTTP/1.1" 200 630 "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
 2026-06-22 16:46:19 [INFO]: ::1 - - [22/Jun/2026:13:46:19 +0000] "GET /api/reports/dashboard HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-06-23 07:00:40 [INFO]: Boresha-Mama API server running on port 5000 in production mode
