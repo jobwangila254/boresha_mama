@@ -6,7 +6,7 @@ import { useTranslation } from '../context/LanguageContext';
 
 export default function LoginPage({ setUser }) {
   const { t } = useTranslation();
-  const [identifier, setIdentifier] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ export default function LoginPage({ setUser }) {
     setError('');
     setLoading(true);
     try {
-      const res = await api.login(identifier, password);
+      const res = await api.login(email, password);
       if (res.data.user.role !== 'county_admin') {
         setError(t('access_denied'));
         return;
@@ -42,8 +42,8 @@ export default function LoginPage({ setUser }) {
         {error && <div style={styles.error}>{error}</div>}
         <form onSubmit={handleSubmit}>
           <div style={styles.field}>
-            <label style={styles.label}>{t('email_or_phone')}</label>
-            <input style={styles.input} value={identifier} onChange={e => setIdentifier(e.target.value)} placeholder="email or +254..." required />
+            <label style={styles.label}>Email</label>
+            <input style={styles.input} type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="admin@boreshamama.go.ke" required />
           </div>
           <div style={styles.field}>
             <label style={styles.label}>{t('password')}</label>
