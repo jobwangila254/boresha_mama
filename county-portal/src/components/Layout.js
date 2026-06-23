@@ -31,7 +31,6 @@ export default function Layout({ user, setUser }) {
           <CountyLogo size={50} showTagline={false} />
           <div style={styles.logoText}>{t('county_portal')}</div>
         </div>
-        </div>
         <div style={styles.userInfo}>
           <div style={styles.userName}>{user?.firstName} {user?.lastName}</div>
           <div style={styles.userRole}>County Administrator</div>
