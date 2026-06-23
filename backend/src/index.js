@@ -36,18 +36,16 @@ app.use(helmet());
 app.use(cors({ origin: config.cors.origin, credentials: true }));
 app.use(compression());
 
-// FIXME: 100 requests might be too low for production
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100,
+  max: 200,
   message: { error: 'Too many requests, please try again later.' },
 });
 app.use('/api/', limiter);
 
-// Auth endpoints get stricter rate limit
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 10,
+  max: 50,
   message: { error: 'Too many login attempts. Try again later.' },
 });
 app.use('/api/auth/login', authLimiter);
