@@ -64,7 +64,6 @@ if (config.nodeEnv !== 'test') {
 app.use('/uploads', express.static(path.resolve(__dirname, '..', config.upload.dir)));
 
 // Routes - i need to add more of these later
-app.use('/api/setup', require('./routes/seed'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/pregnancies', require('./routes/pregnancies'));
 app.use('/api/appointments', require('./routes/appointments'));

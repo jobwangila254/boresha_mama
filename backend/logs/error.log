@@ -666,3 +666,8 @@ Error: Mother registration must be done by a CHV or health facility. Please visi
 Error: Invalid email/phone or password
     at AuthService.login (/home/r34p3r/Projects/Boresha_mama/backend/src/services/authService.js:95:13)
     at Object.<anonymous>.exports.login (/home/r34p3r/Projects/Boresha_mama/backend/src/controllers/authController.js:37:20)
+2026-06-23 09:32:11 [ERROR]: Seed failed: there is no unique or exclusion constraint matching the ON CONFLICT specification
+error: there is no unique or exclusion constraint matching the ON CONFLICT specification
+    at /home/r34p3r/Projects/Boresha_mama/backend/node_modules/pg/lib/client.js:646:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async seed (/home/r34p3r/Projects/Boresha_mama/backend/src/migrations/seed.js:29:7)

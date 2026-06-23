@@ -3383,3 +3383,23 @@ Error: Invalid email/phone or password
 2026-06-22 16:46:19 [INFO]: ::1 - - [22/Jun/2026:13:46:19 +0000] "GET /api/reports/dashboard HTTP/1.1" 200 630 "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
 2026-06-22 16:46:19 [INFO]: ::1 - - [22/Jun/2026:13:46:19 +0000] "GET /api/reports/dashboard HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
 2026-06-23 07:00:40 [INFO]: Boresha-Mama API server running on port 5000 in production mode
+2026-06-23 08:35:14 [INFO]: Boresha-Mama API server running on port 5000 in production mode
+2026-06-23 08:36:18 [INFO]: 127.0.0.1 - - [23/Jun/2026:05:36:18 +0000] "GET /favicon.ico HTTP/1.1" 404 150 "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-06-23 08:36:25 [INFO]: User logged in: kiminini@boreshamama.go.ke
+2026-06-23 08:36:25 [INFO]: 127.0.0.1 - - [23/Jun/2026:05:36:25 +0000] "POST /api/auth/login HTTP/1.1" 200 443 "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-06-23 08:36:26 [INFO]: 127.0.0.1 - - [23/Jun/2026:05:36:26 +0000] "GET /api/auth/profile HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-06-23 08:36:26 [INFO]: 127.0.0.1 - - [23/Jun/2026:05:36:26 +0000] "GET /api/reports/dashboard HTTP/1.1" 200 138 "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-06-23 08:36:26 [INFO]: 127.0.0.1 - - [23/Jun/2026:05:36:26 +0000] "GET /api/reports/dashboard HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-06-23 08:36:26 [INFO]: 127.0.0.1 - - [23/Jun/2026:05:36:26 +0000] "GET /api/appointments?status=scheduled HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-06-23 08:36:26 [INFO]: 127.0.0.1 - - [23/Jun/2026:05:36:26 +0000] "GET /api/appointments?status=scheduled HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-06-23 08:36:30 [INFO]: 127.0.0.1 - - [23/Jun/2026:05:36:30 +0000] "GET /api/pregnancies HTTP/1.1" 200 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-06-23 08:36:30 [INFO]: 127.0.0.1 - - [23/Jun/2026:05:36:30 +0000] "GET /api/pregnancies HTTP/1.1" 304 - "http://localhost:3001/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+2026-06-23 08:40:43 [INFO]: SIGINT received. Shutting down gracefully...
+2026-06-23 09:32:08 [INFO]: Seeding database...
+2026-06-23 09:32:11 [ERROR]: Seed failed: there is no unique or exclusion constraint matching the ON CONFLICT specification
+error: there is no unique or exclusion constraint matching the ON CONFLICT specification
+    at /home/r34p3r/Projects/Boresha_mama/backend/node_modules/pg/lib/client.js:646:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async seed (/home/r34p3r/Projects/Boresha_mama/backend/src/migrations/seed.js:29:7)
+2026-06-23 09:32:58 [INFO]: Seeding database...
+2026-06-23 09:34:20 [INFO]: Seeding database...
