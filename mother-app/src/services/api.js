@@ -3,10 +3,10 @@ import { Platform } from 'react-native';
 
 const ENV_URL = typeof import.meta !== 'undefined' ? import.meta.env?.VITE_API_URL : null;
 const API_BASE_URL = ENV_URL || (Platform.OS === 'web'
-  ? 'http://localhost:5000/api'
+  ? 'https://boresha-mama-api.onrender.com/api'
   : __DEV__
     ? 'http://10.0.2.2:5000/api'
-    : 'https://api.boreshamama.go.ke/api');
+    : 'https://boresha-mama-api.onrender.com/api');
 
 class ApiService {
   constructor() {
