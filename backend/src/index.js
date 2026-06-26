@@ -32,8 +32,19 @@ const app = express();
 // console.log('Starting Boresha-Mama API...');
 
 app.use(helmet());
-// HACK: origin should be environment specific, not hardcoded
-app.use(cors({ origin: config.cors.origin, credentials: true }));
+// Dynamic CORS that allows all configured origins including production Vercel deployments
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    if (config.cors.origin.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true,
+};
+app.use(cors(corsOptions));
 app.use(compression());
 
 const limiter = rateLimit({
@@ -78,14 +89,23 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
   customSiteTitle: 'Boresha-Mama API Docs',
 }));
 
-// Health check - TODO: add DB connection check
-app.get('/api/health', (req, res) => {
+// Health check - includes DB connection check for debugging
+app.get('/api/health', async (req, res) => {
+  let dbStatus = 'unknown';
+  try {
+    await pool.query('SELECT 1');
+    dbStatus = 'connected';
+  } catch (err) {
+    dbStatus = 'error: ' + err.message;
+    logger.error('Health check DB connection failed:', err);
+  }
   res.json({
     status: 'ok',
     service: 'Boresha-Mama API',
     version: '1.0.0',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
+    database: dbStatus,
   });
 });
 

@@ -41,9 +41,13 @@ function errorHandler(err, req, res, _next) {
     stack: err.stack,
     url: req.originalUrl,
     method: req.method,
+    role: req.user?.role,
+    userId: req.user?.id,
   });
 
+  // Mask error message in production for security (but still log actual error)
   if (process.env.NODE_ENV === 'production' && !err.isOperational) {
+    logger.error('Production error details', { originalError: err.message, stack: err.stack });
     message = 'Internal Server Error';
   }
 

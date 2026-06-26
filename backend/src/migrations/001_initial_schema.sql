@@ -135,14 +135,26 @@ CREATE TABLE IF NOT EXISTS facilities (
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Add FK from chv_profiles to facilities
-DO $$ BEGIN
-  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'fk_chv_facility') THEN
-    ALTER TABLE chv_profiles
-      ADD CONSTRAINT fk_chv_facility
-      FOREIGN KEY (facility_id) REFERENCES facilities(id)
-      ON DELETE SET NULL;
+-- Add FK from chv_profiles to facilities (handle gracefully if already exists)
+-- Check if both tables exist and facilities has a primary key before adding FK
+DO $$ 
+DECLARE
+  facilities_pk_exists boolean;
+BEGIN
+  -- Check if facilities.id has a primary key
+  SELECT EXISTS (
+    SELECT 1 FROM pg_index 
+    WHERE indrelid = 'facilities'::regclass AND indisprimary = true
+  ) INTO facilities_pk_exists;
+  
+  IF facilities_pk_exists THEN
+    ALTER TABLE chv_profiles DROP CONSTRAINT IF EXISTS fk_chv_facility;
+    ALTER TABLE chv_profiles ADD CONSTRAINT fk_chv_facility
+      FOREIGN KEY (facility_id) REFERENCES facilities(id) ON DELETE SET NULL;
   END IF;
+EXCEPTION 
+  WHEN OTHERS THEN
+    RAISE WARNING 'Could not add fk_chv_facility constraint, continuing...';
 END $$ LANGUAGE plpgsql;
 
 -- ============================================
@@ -269,13 +281,27 @@ CREATE TABLE IF NOT EXISTS referrals (
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
-DO $$ BEGIN
-  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'fk_home_visit_referral') THEN
+-- Add FK from home_visits to referrals (handle gracefully if already exists)
+DO $$ 
+DECLARE
+  referrals_pk_exists boolean;
+BEGIN
+  -- Check if referrals.id has a primary key
+  SELECT EXISTS (
+    SELECT 1 FROM pg_index 
+    WHERE indrelid = 'referrals'::regclass AND indisprimary = true
+  ) INTO referrals_pk_exists;
+  
+  IF referrals_pk_exists THEN
+    ALTER TABLE home_visits DROP CONSTRAINT IF EXISTS fk_home_visit_referral;
     ALTER TABLE home_visits
       ADD CONSTRAINT fk_home_visit_referral
       FOREIGN KEY (referral_id) REFERENCES referrals(id)
       ON DELETE SET NULL;
   END IF;
+EXCEPTION 
+  WHEN OTHERS THEN
+    RAISE WARNING 'Could not add fk_home_visit_referral constraint, continuing...';
 END $$ LANGUAGE plpgsql;
 
 CREATE INDEX IF NOT EXISTS idx_referrals_pregnancy ON referrals(pregnancy_id);

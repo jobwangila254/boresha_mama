@@ -29,7 +29,7 @@ module.exports = {
     maxFileSize: parseInt(process.env.MAX_FILE_SIZE, 10) || 5242880,
   },
   cors: {
-    origin: (process.env.CORS_ORIGIN || 'http://localhost:3000,http://localhost:3001,http://localhost:3002,http://localhost:3003,http://localhost:3004,http://localhost:8081').split(','),
+    origin: (process.env.CORS_ORIGIN || 'http://localhost:3000,http://localhost:3001,http://localhost:3002,http://localhost:3003,http://localhost:3004,http://localhost:8081,https://county-portal.vercel.app,https://facility-dashboard-rho.vercel.app,https://chv-app.vercel.app,https://mother-app-ashy.vercel.app').split(','),
   },
   bcrypt: {
     rounds: parseInt(process.env.BCRYPT_ROUNDS, 10) || (process.env.NODE_ENV === 'test' ? 1 : 12),

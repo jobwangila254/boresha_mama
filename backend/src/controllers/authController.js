@@ -3,6 +3,7 @@ const authService = require('../services/authService');
 const db = require('../config/database');
 // FIXME: AppError path might be wrong after recent refactor
 const { AppError } = require('../middleware/errorHandler');
+const logger = require('../config/logger');
 
 exports.registerMotherSelf = async (req, res, next) => {
   try {
@@ -102,45 +103,60 @@ exports.getProfile = async (req, res, next) => {
     const profile = result.rows[0];
     // TODO: move this role-specific logic to separate functions
     if (profile.role === 'chv') {
-      const chvResult = await db.query(
-        'SELECT * FROM chv_profiles WHERE user_id = $1',
-        [req.user.id]
-      );
-      profile.chvProfile = chvResult.rows[0] || null;
+      try {
+        const chvResult = await db.query(
+          'SELECT * FROM chv_profiles WHERE user_id = $1',
+          [req.user.id]
+        );
+        profile.chvProfile = chvResult.rows[0] || null;
+      } catch (chvErr) {
+        logger.error('CHV profile query failed:', chvErr);
+        profile.chvProfile = null;
+      }
     } else if (profile.role === 'facility_staff') {
-      const staffResult = await db.query(
-        'SELECT fs.*, f.name as facility_name, f.type as facility_type, f.level as facility_level, f.ward as facility_ward, f.constituency as facility_constituency FROM facility_staff fs JOIN facilities f ON fs.facility_id = f.id WHERE fs.user_id = $1',
-        [req.user.id]
-      );
-      profile.facilityStaff = staffResult.rows[0] || null;
+      try {
+        const staffResult = await db.query(
+          'SELECT fs.*, f.name as facility_name, f.type as facility_type, f.level as facility_level, f.ward as facility_ward, f.constituency as facility_constituency FROM facility_staff fs JOIN facilities f ON fs.facility_id = f.id WHERE fs.user_id = $1',
+          [req.user.id]
+        );
+        profile.facilityStaff = staffResult.rows[0] || null;
+      } catch (staffErr) {
+        logger.error('Facility staff profile query failed:', staffErr);
+        // Return partial profile instead of failing completely
+        profile.facilityStaff = null;
+      }
     } else if (profile.role === 'mother') {
-      // HACK: only getting the latest pregnancy, might need all
-      const pregResult = await db.query(
-        `SELECT p.id, p.lmp_date, p.edd_date, p.gravida, p.parity,
-                p.status, p.risk_level, p.risk_factors,
-                u.first_name AS chv_first_name, u.last_name AS chv_last_name, u.phone AS chv_phone
-         FROM pregnancies p
-         JOIN mothers m ON m.id = p.mother_id
-         LEFT JOIN users u ON u.id = m.chv_id
-         WHERE m.user_id = $1
-         ORDER BY p.created_at DESC
-         LIMIT 1`,
-        [req.user.id]
-      );
-      profile.pregnancy = pregResult.rows[0] || null;
+      try {
+        // HACK: only getting the latest pregnancy, might need all
+        const pregResult = await db.query(
+          `SELECT p.id, p.lmp_date, p.edd_date, p.gravida, p.parity,
+                  p.status, p.risk_level, p.risk_factors,
+                  u.first_name AS chv_first_name, u.last_name AS chv_last_name, u.phone AS chv_phone
+           FROM pregnancies p
+           JOIN mothers m ON m.id = p.mother_id
+           LEFT JOIN users u ON u.id = m.chv_id
+           WHERE m.user_id = $1
+           ORDER BY p.created_at DESC
+           LIMIT 1`,
+          [req.user.id]
+        );
+        profile.pregnancy = pregResult.rows[0] || null;
 
-      // FIXME: this only gets the next appointment, need all future ones
-      const aptResult = await db.query(
-        `SELECT a.appointment_date, a.visit_type, a.status, f.name AS facility_name
-         FROM appointments a
-         JOIN mothers m ON m.id = a.mother_id
-         LEFT JOIN facilities f ON f.id = a.facility_id
-         WHERE m.user_id = $1 AND a.status = 'scheduled' AND a.appointment_date >= CURRENT_DATE
-         ORDER BY a.appointment_date ASC
-         LIMIT 1`,
-        [req.user.id]
-      );
-      profile.nextAppointment = aptResult.rows[0] || null;
+        // FIXME: this only gets the next appointment, need all future ones
+        const aptResult = await db.query(
+          `SELECT a.appointment_date, a.visit_type, a.status, f.name AS facility_name
+           FROM appointments a
+           JOIN mothers m ON m.id = a.mother_id
+           LEFT JOIN facilities f ON f.id = a.facility_id
+           WHERE m.user_id = $1 AND a.status = 'scheduled' AND a.appointment_date >= CURRENT_DATE
+           ORDER BY a.appointment_date ASC
+           LIMIT 1`,
+          [req.user.id]
+        );
+        profile.nextAppointment = aptResult.rows[0] || null;
+      } catch (motherErr) {
+        logger.error('Mother profile query failed:', motherErr);
+      }
     }
 
     res.json(profile);
