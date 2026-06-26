@@ -41,10 +41,13 @@ export default defineConfig({
       '@react-native-community/datetimepicker': path.resolve(sharedWeb, 'DateTimePicker.js'),
     },
   },
+  optimizeDeps: {
+    noDiscovery: false,
+    include: ['react-native-web', '@react-navigation/native'],
+  },
   esbuild: {
     loader: { '.js': 'jsx' },
   },
-  optimizeDeps: { noDiscovery: true, include: [] },
   define: {
     __DEV__: JSON.stringify(true),
   },

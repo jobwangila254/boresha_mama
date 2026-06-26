@@ -19,7 +19,7 @@ router.post('/', authorize('mother', 'facility_staff', 'chv'), audit('CREATE_APP
 ], controller.createAppointment);
 
 router.get('/', controller.getAppointments);
-router.patch('/:id/status', authenticate, audit('UPDATE_APPOINTMENT_STATUS', 'appointment'), [
+router.patch('/:id/status', authorize('mother', 'facility_staff', 'chv', 'county_admin'), audit('UPDATE_APPOINTMENT_STATUS', 'appointment'), [
   body('status').isIn(['scheduled', 'confirmed', 'completed', 'cancelled', 'missed']),
   body('notes').optional().trim(),
   body('cancellationReason').optional().trim(),

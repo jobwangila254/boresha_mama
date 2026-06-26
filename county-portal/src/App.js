@@ -28,7 +28,7 @@ export default function App() {
   return (
     <ErrorBoundary>
     <LanguageProvider>
-    <Router>
+    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <Routes>
         <Route path="/" element={<LoginPage setUser={setUser} />} />
         <Route path="/dashboard" element={<PrivateRoute user={user}><Layout user={user} setUser={setUser} /></PrivateRoute>}>

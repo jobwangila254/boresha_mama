@@ -92,7 +92,7 @@ export default function PatientDetailPage() {
 
   return (
     <div>
-      <Link to="/patients" style={styles.backLink}>&larr; {t('back_to_patients')}</Link>
+      <Link to="/dashboard/patients" style={styles.backLink}>&larr; {t('back_to_patients')}</Link>
 
       <div style={styles.header}>
         <div>
@@ -207,7 +207,7 @@ export default function PatientDetailPage() {
             </tbody>
           </table>
         )}
-        <button style={{ ...styles.completeBtn, marginTop: 12, background: '#2980B9' }} onClick={() => navigate('/appointments')}>{t('create_appointment')}</button>
+        <button style={{ ...styles.completeBtn, marginTop: 12, background: '#2980B9' }} onClick={() => navigate('/dashboard/appointments')}>{t('create_appointment')}</button>
       </div>
 
       <div style={styles.card}>

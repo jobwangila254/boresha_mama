@@ -72,6 +72,25 @@ export default function RegisterPregnancyScreen({ navigation }) {
     parity: '0',
     facilityId: '',
     riskFactors: [],
+    // Prenatal fields
+    chronicConditions: [],
+    allergies: '',
+    currentMedications: '',
+    height: '',
+    weight: '',
+    previousComplications: [],
+    bloodType: '',
+    currentSymptoms: [],
+    // Birth plan fields
+    deliveryPlan: 'facility',
+    supportPerson: '',
+    emergencyContactPhone: '',
+    breastfeedingPlan: 'exclusive',
+    familyPlanning: '',
+    // Childcare fields
+    knowsVaccinations: true,
+    careSupport: '',
+    emergencyTransport: true,
   });
 
   const tempPasswordRef = useRef(generateTempPassword());
@@ -80,6 +99,21 @@ export default function RegisterPregnancyScreen({ navigation }) {
     'age_over_35', 'age_under_18', 'previous_c_section',
     'previous_miscarriage', 'hypertension', 'diabetes', 'multiple_pregnancy',
     'hiv_positive', 'anemia', 'obesity', 'previous_complication',
+  ];
+
+  const CHRONIC_CONDITIONS = [
+    'diabetes', 'hypertension', 'hiv', 'asthma', 'anemia',
+    'heart_disease', 'thyroid', 'kidney_disease', 'none',
+  ];
+
+  const PREV_COMPLICATIONS = [
+    'previous_c_section', 'postpartum_hemorrhage', 'preeclampsia',
+    'preterm_birth', 'miscarriage', 'stillbirth', 'none',
+  ];
+
+  const SYMPTOMS = [
+    'nausea', 'fatigue', 'back_pain', 'swelling', 'heartburn',
+    'headache', 'none',
   ];
 
   const constituencies = locations.map(l => l.constituency);
@@ -146,6 +180,16 @@ export default function RegisterPregnancyScreen({ navigation }) {
     }));
   }
 
+  function toggleArray(field, value) {
+    if (value === 'none') return ['none'];
+    const current = form[field] || [];
+    const filtered = current.filter(v => v !== 'none');
+    if (filtered.includes(value)) {
+      return filtered.filter(v => v !== value);
+    }
+    return [...filtered, value];
+  }
+
   function onDOBChange(_, selectedDate) {
     setShowDOBPicker(false);
     if (selectedDate) {
@@ -171,7 +215,7 @@ export default function RegisterPregnancyScreen({ navigation }) {
 
   async function handleRegister() {
     const phone = normalizePhone(form.motherPhone);
-    if (!phone || !form.motherFirstName || !form.motherLastName || !form.motherNationalId || !form.motherDOB || !form.lmpDate || !form.constituency || !form.ward || !form.village) {
+    if (!phone || !form.motherFirstName || !form.motherLastName || !form.motherNationalId || !form.motherDOB || !form.lmpDate || !form.constituency || !form.ward || !form.village || !form.emergencyContactPhone) {
       Alert.alert(t('error'), t('phone_name_lmp_required'));
       return;
     }
@@ -193,6 +237,31 @@ export default function RegisterPregnancyScreen({ navigation }) {
         constituency: form.constituency,
         facilityId: form.facilityId || null,
         riskFactors: form.riskFactors,
+        prenatal: {
+          chronicConditions: form.chronicConditions,
+          allergies: form.allergies,
+          currentMedications: form.currentMedications,
+          height: parseFloat(form.height) || null,
+          weight: parseFloat(form.weight) || null,
+          previousPregnancies: parseInt(form.gravida) || 1,
+          previousBirths: parseInt(form.parity) || 0,
+          previousComplications: form.previousComplications,
+          bloodType: form.bloodType,
+          currentSymptoms: form.currentSymptoms,
+        },
+        postnatal: {
+          deliveryPlan: form.deliveryPlan,
+          preferredFacilityId: form.facilityId,
+          supportPerson: form.supportPerson,
+          emergencyContactPhone: form.emergencyContactPhone,
+          breastfeedingPlan: form.breastfeedingPlan,
+          familyPlanning: form.familyPlanning,
+        },
+        childcare: {
+          knowsVaccinations: form.knowsVaccinations,
+          careSupport: form.careSupport,
+          emergencyTransport: form.emergencyTransport,
+        },
       });
       const pw = res.data?.tempPassword || tempPasswordRef.current;
       Alert.alert(
@@ -379,13 +448,155 @@ export default function RegisterPregnancyScreen({ navigation }) {
       </View>
 
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Risk Factors</Text>
+        <Text style={styles.cardTitle}>Prenatal Information</Text>
+
+        <Text style={styles.label}>Chronic Conditions</Text>
         <View style={styles.riskGrid}>
-          {riskFactorOptions.map(factor => (
-            <TouchableOpacity key={factor} style={[styles.riskChip, form.riskFactors.includes(factor) && styles.riskChipSelected]} onPress={() => toggleRiskFactor(factor)}>
-              <Text style={[styles.riskChipText, form.riskFactors.includes(factor) && styles.riskChipTextSelected]}>{factor.replace(/_/g, ' ')}</Text>
+          {CHRONIC_CONDITIONS.map(c => (
+            <TouchableOpacity
+              key={c}
+              style={[styles.riskChip, form.chronicConditions.includes(c) && styles.riskChipSelected]}
+              onPress={() => updateField('chronicConditions', toggleArray('chronicConditions', c))}
+            >
+              <Text style={[styles.riskChipText, form.chronicConditions.includes(c) && styles.riskChipTextSelected]}>{c.replace(/_/g, ' ')}</Text>
             </TouchableOpacity>
           ))}
+        </View>
+
+        <Text style={styles.label}>Allergies</Text>
+        <TextInput style={styles.input} value={form.allergies} onChangeText={v => updateField('allergies', v)} placeholder="e.g. Penicillin" placeholderTextColor="#999" />
+
+        <Text style={styles.label}>Current Medications</Text>
+        <TextInput style={styles.input} value={form.currentMedications} onChangeText={v => updateField('currentMedications', v)} placeholder="List any medications" placeholderTextColor="#999" />
+
+        <View style={styles.row}>
+          <View style={styles.halfField}>
+            <Text style={styles.label}>Height (cm)</Text>
+            <TextInput style={styles.input} value={form.height} onChangeText={v => updateField('height', v)} keyboardType="decimal-pad" placeholder="e.g. 160" placeholderTextColor="#999" />
+          </View>
+          <View style={styles.halfField}>
+            <Text style={styles.label}>Weight (kg)</Text>
+            <TextInput style={styles.input} value={form.weight} onChangeText={v => updateField('weight', v)} keyboardType="decimal-pad" placeholder="e.g. 65" placeholderTextColor="#999" />
+          </View>
+        </View>
+
+        <Text style={styles.label}>Previous Complications</Text>
+        <View style={styles.riskGrid}>
+          {PREV_COMPLICATIONS.map(c => (
+            <TouchableOpacity
+              key={c}
+              style={[styles.riskChip, form.previousComplications.includes(c) && styles.riskChipSelected]}
+              onPress={() => updateField('previousComplications', toggleArray('previousComplications', c))}
+            >
+              <Text style={[styles.riskChipText, form.previousComplications.includes(c) && styles.riskChipTextSelected]}>{c.replace(/_/g, ' ')}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        <Text style={styles.label}>Blood Type</Text>
+        <TextInput style={styles.input} value={form.bloodType} onChangeText={v => updateField('bloodType', v)} placeholder="e.g. O+" placeholderTextColor="#999" />
+
+        <Text style={styles.label}>Current Symptoms</Text>
+        <View style={styles.riskGrid}>
+          {SYMPTOMS.map(s => (
+            <TouchableOpacity
+              key={s}
+              style={[styles.riskChip, form.currentSymptoms.includes(s) && styles.riskChipSelected]}
+              onPress={() => updateField('currentSymptoms', toggleArray('currentSymptoms', s))}
+            >
+              <Text style={[styles.riskChipText, form.currentSymptoms.includes(s) && styles.riskChipTextSelected]}>{s.replace(/_/g, ' ')}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </View>
+
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Birth Plan</Text>
+
+        <Text style={styles.label}>Delivery Plan</Text>
+        <View style={styles.riskGrid}>
+          <TouchableOpacity
+            style={[styles.riskChip, form.deliveryPlan === 'facility' && styles.riskChipSelected]}
+            onPress={() => updateField('deliveryPlan', 'facility')}
+          >
+            <Text style={[styles.riskChipText, form.deliveryPlan === 'facility' && styles.riskChipTextSelected]}>Facility</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.riskChip, form.deliveryPlan === 'home' && styles.riskChipSelected]}
+            onPress={() => updateField('deliveryPlan', 'home')}
+          >
+            <Text style={[styles.riskChipText, form.deliveryPlan === 'home' && styles.riskChipTextSelected]}>Home</Text>
+          </TouchableOpacity>
+        </View>
+
+        <Text style={styles.label}>Support Person</Text>
+        <TextInput style={styles.input} value={form.supportPerson} onChangeText={v => updateField('supportPerson', v)} placeholder="Name of support person" placeholderTextColor="#999" />
+
+        <Text style={styles.label}>Emergency Contact Phone *</Text>
+        <TextInput style={styles.input} value={form.emergencyContactPhone} onChangeText={v => updateField('emergencyContactPhone', v)} keyboardType="phone-pad" placeholder="+2547XXXXXXXX" placeholderTextColor="#999" />
+
+        <Text style={styles.label}>Breastfeeding Plan</Text>
+        <View style={styles.riskGrid}>
+          <TouchableOpacity
+            style={[styles.riskChip, form.breastfeedingPlan === 'exclusive' && styles.riskChipSelected]}
+            onPress={() => updateField('breastfeedingPlan', 'exclusive')}
+          >
+            <Text style={[styles.riskChipText, form.breastfeedingPlan === 'exclusive' && styles.riskChipTextSelected]}>Exclusive</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.riskChip, form.breastfeedingPlan === 'mixed' && styles.riskChipSelected]}
+            onPress={() => updateField('breastfeedingPlan', 'mixed')}
+          >
+            <Text style={[styles.riskChipText, form.breastfeedingPlan === 'mixed' && styles.riskChipTextSelected]}>Mixed</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.riskChip, form.breastfeedingPlan === 'formula' && styles.riskChipSelected]}
+            onPress={() => updateField('breastfeedingPlan', 'formula')}
+          >
+            <Text style={[styles.riskChipText, form.breastfeedingPlan === 'formula' && styles.riskChipTextSelected]}>Formula</Text>
+          </TouchableOpacity>
+        </View>
+
+        <Text style={styles.label}>Family Planning</Text>
+        <TextInput style={styles.input} value={form.familyPlanning} onChangeText={v => updateField('familyPlanning', v)} placeholder="Preferred method" placeholderTextColor="#999" />
+      </View>
+
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Childcare</Text>
+
+        <Text style={styles.label}>Knows Vaccination Schedule</Text>
+        <View style={styles.riskGrid}>
+          <TouchableOpacity
+            style={[styles.riskChip, form.knowsVaccinations === true && styles.riskChipSelected]}
+            onPress={() => updateField('knowsVaccinations', true)}
+          >
+            <Text style={[styles.riskChipText, form.knowsVaccinations === true && styles.riskChipTextSelected]}>Yes</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.riskChip, form.knowsVaccinations === false && styles.riskChipSelected]}
+            onPress={() => updateField('knowsVaccinations', false)}
+          >
+            <Text style={[styles.riskChipText, form.knowsVaccinations === false && styles.riskChipTextSelected]}>No</Text>
+          </TouchableOpacity>
+        </View>
+
+        <Text style={styles.label}>Care Support</Text>
+        <TextInput style={styles.input} value={form.careSupport} onChangeText={v => updateField('careSupport', v)} placeholder="Who will help with childcare" placeholderTextColor="#999" />
+
+        <Text style={styles.label}>Emergency Transport Available</Text>
+        <View style={styles.riskGrid}>
+          <TouchableOpacity
+            style={[styles.riskChip, form.emergencyTransport === true && styles.riskChipSelected]}
+            onPress={() => updateField('emergencyTransport', true)}
+          >
+            <Text style={[styles.riskChipText, form.emergencyTransport === true && styles.riskChipTextSelected]}>Yes</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.riskChip, form.emergencyTransport === false && styles.riskChipSelected]}
+            onPress={() => updateField('emergencyTransport', false)}
+          >
+            <Text style={[styles.riskChipText, form.emergencyTransport === false && styles.riskChipTextSelected]}>No</Text>
+          </TouchableOpacity>
         </View>
       </View>
 

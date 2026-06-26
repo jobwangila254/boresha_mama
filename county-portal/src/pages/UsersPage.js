@@ -189,7 +189,7 @@ export default function UsersPage() {
 
   function renderFacilityRow(facility) {
     return (
-      <tr key={facility.id} onClick={() => navigate('/facilities')} style={styles.trClickable}>
+      <tr key={facility.id} onClick={() => navigate('/dashboard/facilities')} style={styles.trClickable}>
         <td style={styles.td}><strong>{facility.name}</strong></td>
         <td style={styles.td}>{facility.type?.replace(/_/g, ' ')}</td>
         <td style={styles.td}>{facility.ward}</td>

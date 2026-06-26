@@ -86,7 +86,7 @@ export default function PatientsPage() {
                     </span>
                   </td>
                   <td style={styles.td}>
-                    <Link to={`/patients/${p.id}`} style={styles.viewBtn}>{t('view')}</Link>
+                    <Link to={`/dashboard/patients/${p.id}`} style={styles.viewBtn}>{t('view')}</Link>
                   </td>
                 </tr>
               ))

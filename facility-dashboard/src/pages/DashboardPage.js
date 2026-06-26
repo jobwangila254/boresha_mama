@@ -123,16 +123,16 @@ export default function DashboardPage() {
               </div>
             ))
           )}
-          <Link to="/appointments" style={styles.viewAll}>View All →</Link>
+          <Link to="/dashboard/appointments" style={styles.viewAll}>View All →</Link>
         </div>
       </div>
 
       <div style={styles.quickActions}>
         <span style={styles.quickActionsTitle}>Quick Actions</span>
         <div style={styles.quickActionsBtns}>
-          <Link to="/patients/register" style={{ textDecoration: 'none' }}><button style={styles.quickBtn('#1B5E20')}>+ Register Patient</button></Link>
-          <Link to="/appointments" style={{ textDecoration: 'none' }}><button style={styles.quickBtn('#1565C0')}>📅 New Appointment</button></Link>
-          <Link to="/referrals/new" style={{ textDecoration: 'none' }}><button style={styles.quickBtn('#E65100')}>↗ Process Referral</button></Link>
+          <Link to="/dashboard/patients/register" style={{ textDecoration: 'none' }}><button style={styles.quickBtn('#1B5E20')}>+ Register Patient</button></Link>
+          <Link to="/dashboard/appointments" style={{ textDecoration: 'none' }}><button style={styles.quickBtn('#1565C0')}>📅 New Appointment</button></Link>
+          <Link to="/dashboard/referrals/new" style={{ textDecoration: 'none' }}><button style={styles.quickBtn('#E65100')}>↗ Process Referral</button></Link>
         </div>
       </div>
     </div>
