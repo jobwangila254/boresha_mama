@@ -186,8 +186,8 @@ async function seed() {
       // skip mother if facility wasn't seeded — shouldn't happen but has
       if (!facilityId) continue;
 
-      // Each mother gets a unique password derived from their phone suffix
-      const rawPass = 'Mama' + m.phone.slice(-4);
+      // Each mother gets password: firstName@123 (e.g. Mary@123)
+      const rawPass = `${m.firstName}@123`;
       const mHash = await bcrypt.hash(rawPass, 12);
       const user = await client.query(
         `INSERT INTO users (phone, first_name, last_name, email, password_hash, role, is_verified)
