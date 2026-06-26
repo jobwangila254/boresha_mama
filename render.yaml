@@ -21,7 +21,7 @@ services:
       - key: AT_USERNAME
         value: sandbox
       - key: CORS_ORIGIN
-        value: https://facility-dashboard-rho.vercel.app,https://county-portal.vercel.app,https://mother-7olsshamz-jobwangila254s-projects.vercel.app,https://chv-app.vercel.app
+        value: https://mother-app-ashy.vercel.app,https://chv-app.vercel.app,https://facility-dashboard-rho.vercel.app,https://county-portal.vercel.app
       - key: UPLOAD_DIR
         value: uploads
       - key: MAX_FILE_SIZE
