@@ -37,16 +37,13 @@ export default defineConfig({
       'react-native-safe-area-context': path.resolve(sharedWeb, 'SafeAreaContext.js'),
       'react-native-screens': path.resolve(sharedWeb, 'Screens.js'),
       'react-native-vector-icons': path.resolve(sharedWeb, 'VectorIcons.js'),
+      '@react-native-community/datetimepicker': path.resolve(sharedWeb, 'DateTimePicker.js'),
     },
   },
   define: {
     __DEV__: JSON.stringify(true),
   },
-  esbuild: {
-    loader: {
-      '.js': 'jsx',
-    },
-  },
+  optimizeDeps: { noDiscovery: true, include: [] },
   server: {
     port: parseInt(process.env.VITE_PORT, 10) || 3002,
     host: true,

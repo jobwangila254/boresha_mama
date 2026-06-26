@@ -3,10 +3,19 @@ import {
   View, Text, TextInput, TouchableOpacity, StyleSheet,
   KeyboardAvoidingView, Platform, Alert, ActivityIndicator, ScrollView,
 } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from '../context/LanguageContext';
 import CountyLogo from '../components/CountyLogo';
 import api from '../services/api';
+
+function toDateString(date) {
+  if (!date) return '';
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
 
 const STAGES = [
   { value: 'first_trimester', labelKey: 'stage_first_trimester' },
@@ -23,10 +32,15 @@ export default function MotherSignupScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [facilities, setFacilities] = useState([]);
   const [filteredFacilities, setFilteredFacilities] = useState([]);
+  const [wards, setWards] = useState([]);
+  const [villages, setVillages] = useState([]);
+  const [showWardDropdown, setShowWardDropdown] = useState(false);
+  const [showVillageDropdown, setShowVillageDropdown] = useState(false);
+  const [loadingLocations, setLoadingLocations] = useState(false);
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
-    dateOfBirth: '',
+    dateOfBirth: null,
     lmpDate: '',
     pregnancyStage: 'first_trimester',
     village: '',
@@ -38,21 +52,56 @@ export default function MotherSignupScreen({ navigation }) {
 
   useEffect(() => {
     api.getFacilities().then(setFacilities).catch(() => {});
+    api.getLocations().then(data => {
+      if (!Array.isArray(data) || data.length === 0) {
+        console.warn('Locations API returned empty data');
+        return;
+      }
+      const uniqueWards = [...new Set(data.flatMap(c =>
+        c.wards?.map(w => w.ward) || []
+      ))].sort();
+      setWards(uniqueWards);
+    }).catch(err => console.warn('Failed to load wards:', err.message));
   }, []);
 
   useEffect(() => {
-    if (form.ward) {
-      const filtered = facilities.filter(f =>
-        f.ward?.toLowerCase().includes(form.ward.toLowerCase())
-      );
+    if (!form.ward) {
+      setVillages([]);
+      setFilteredFacilities(facilities);
+      return;
+    }
+    setLoadingLocations(true);
+    setShowVillageDropdown(false);
+    setForm(prev => ({ ...prev, village: '' }));
+    Promise.all([
+      api.getLocations({ mode: 'villages', ward: form.ward }),
+      Promise.resolve(
+        facilities.filter(f =>
+          f.ward?.toLowerCase() === form.ward.toLowerCase()
+        )
+      ),
+    ]).then(([villageData, filtered]) => {
+      setVillages([...new Set(villageData.map(v => v.village))].sort());
       setFilteredFacilities(filtered);
       if (!filtered.some(f => f.id === form.facilityId)) {
         setForm(prev => ({ ...prev, facilityId: '' }));
       }
-    } else {
-      setFilteredFacilities(facilities);
-    }
+    }).catch(() => {}).finally(() => setLoadingLocations(false));
   }, [form.ward, facilities]);
+
+  useEffect(() => {
+    if (step === 1 && !form.dateOfBirth) {
+      setForm(prev => ({ ...prev, dateOfBirth: new Date(1995, 0, 1) }));
+    }
+  }, [step]);
+
+  function normalizePhone(phone) {
+    const digits = phone.replace(/\D/g, '');
+    if (digits.startsWith('254') && digits.length === 12) return '+' + digits;
+    if (digits.startsWith('07') && digits.length === 10) return '+254' + digits.slice(1);
+    if (digits.startsWith('7') && digits.length === 9) return '+254' + digits;
+    return phone;
+  }
 
   function update(field, value) {
     setForm(prev => ({ ...prev, [field]: value }));
@@ -61,7 +110,7 @@ export default function MotherSignupScreen({ navigation }) {
   function isStepValid() {
     switch (step) {
       case 0: return form.firstName.trim() && form.lastName.trim();
-      case 1: return form.dateOfBirth.trim();
+      case 1: return form.dateOfBirth !== null;
       case 2: return true;
       case 3: return true;
       case 4: return form.phone.trim() && form.password.length >= 6;
@@ -82,7 +131,8 @@ export default function MotherSignupScreen({ navigation }) {
   }
 
   async function handleSubmit() {
-    if (!form.phone.match(/^\+?254\d{9}$/)) {
+    const normalizedPhone = normalizePhone(form.phone);
+    if (!normalizedPhone.match(/^\+254\d{9}$/)) {
       Alert.alert(t('error'), t('valid_kenyan_phone'));
       return;
     }
@@ -91,9 +141,9 @@ export default function MotherSignupScreen({ navigation }) {
       await registerMotherSelf({
         firstName: form.firstName,
         lastName: form.lastName,
-        phone: form.phone,
+        phone: normalizedPhone,
         password: form.password,
-        dateOfBirth: form.dateOfBirth,
+        dateOfBirth: toDateString(form.dateOfBirth),
         lmpDate: form.lmpDate || null,
         pregnancyStage: form.pregnancyStage,
         village: form.village || null,
@@ -173,13 +223,18 @@ export default function MotherSignupScreen({ navigation }) {
               <Text style={styles.stepTitle}>{t('step_dob_title')}</Text>
               <Text style={styles.stepDesc}>{t('step_dob_desc')}</Text>
               <Text style={styles.label}>{t('date_of_birth')} *</Text>
-              <TextInput
-                style={styles.input}
-                value={form.dateOfBirth}
-                onChangeText={v => update('dateOfBirth', v)}
-                placeholder="YYYY-MM-DD"
-                placeholderTextColor="#999"
+              <DateTimePicker
+                mode="date"
+                value={form.dateOfBirth || new Date(2000, 0, 1)}
+                maximumDate={new Date()}
+                onChange={(event, selectedDate) => {
+                  if (selectedDate) update('dateOfBirth', selectedDate);
+                }}
+                style={styles.datePicker}
               />
+              {form.dateOfBirth && (
+                <Text style={styles.datePreview}>{toDateString(form.dateOfBirth)}</Text>
+              )}
               <View style={styles.buttonRow}>
                 <TouchableOpacity style={styles.secondaryBtn} onPress={prevStep}>
                   <Text style={styles.secondaryBtnText}>{t('back')}</Text>
@@ -232,22 +287,79 @@ export default function MotherSignupScreen({ navigation }) {
             <>
               <Text style={styles.stepTitle}>{t('step_location_title')}</Text>
               <Text style={styles.stepDesc}>{t('step_location_desc')}</Text>
-              <Text style={styles.label}>{t('village')}</Text>
-              <TextInput
-                style={styles.input}
-                value={form.village}
-                onChangeText={v => update('village', v)}
-                placeholder="e.g. Kiminini Town"
-                placeholderTextColor="#999"
-              />
+
               <Text style={styles.label}>{t('ward')}</Text>
-              <TextInput
-                style={styles.input}
-                value={form.ward}
-                onChangeText={v => update('ward', v)}
-                placeholder="e.g. Kiminini"
-                placeholderTextColor="#999"
-              />
+              <TouchableOpacity
+                style={styles.dropdownBtn}
+                onPress={() => setShowWardDropdown(!showWardDropdown)}
+              >
+                <Text style={[styles.dropdownBtnText, !form.ward && styles.dropdownPlaceholder]}>
+                  {form.ward || t('select_ward')}
+                </Text>
+                <Text style={styles.dropdownArrow}>{showWardDropdown ? '▲' : '▼'}</Text>
+              </TouchableOpacity>
+              {showWardDropdown && (
+                <ScrollView style={styles.dropdownList} nestedScrollEnabled>
+                  {wards.length === 0 ? (
+                    <Text style={styles.emptyText}>{t('no_wards')}</Text>
+                  ) : (
+                    wards.map(w => (
+                      <TouchableOpacity
+                        key={w}
+                        style={[styles.dropdownItem, form.ward === w && styles.dropdownItemActive]}
+                        onPress={() => {
+                          update('ward', form.ward === w ? '' : w);
+                          setShowWardDropdown(false);
+                        }}
+                      >
+                        <Text style={[styles.dropdownItemText, form.ward === w && styles.dropdownItemTextActive]}>
+                          {w}
+                        </Text>
+                      </TouchableOpacity>
+                    ))
+                  )}
+                </ScrollView>
+              )}
+
+              {form.ward && (
+                <>
+                  <Text style={styles.label}>{t('village')}</Text>
+                  <TouchableOpacity
+                    style={styles.dropdownBtn}
+                    onPress={() => setShowVillageDropdown(!showVillageDropdown)}
+                  >
+                    <Text style={[styles.dropdownBtnText, !form.village && styles.dropdownPlaceholder]}>
+                      {form.village || t('select_village')}
+                    </Text>
+                    <Text style={styles.dropdownArrow}>{showVillageDropdown ? '▲' : '▼'}</Text>
+                  </TouchableOpacity>
+                  {showVillageDropdown && (
+                    <ScrollView style={styles.dropdownList} nestedScrollEnabled>
+                      {loadingLocations ? (
+                        <ActivityIndicator color="#006633" style={{ padding: 20 }} />
+                      ) : villages.length === 0 ? (
+                        <Text style={styles.emptyText}>{t('no_villages')}</Text>
+                      ) : (
+                        villages.map(v => (
+                          <TouchableOpacity
+                            key={v}
+                            style={[styles.dropdownItem, form.village === v && styles.dropdownItemActive]}
+                            onPress={() => {
+                              update('village', form.village === v ? '' : v);
+                              setShowVillageDropdown(false);
+                            }}
+                          >
+                            <Text style={[styles.dropdownItemText, form.village === v && styles.dropdownItemTextActive]}>
+                              {v}
+                            </Text>
+                          </TouchableOpacity>
+                        ))
+                      )}
+                    </ScrollView>
+                  )}
+                </>
+              )}
+
               <Text style={styles.label}>{t('preferred_facility')}</Text>
               <ScrollView style={styles.facilityList} nestedScrollEnabled>
                 {filteredFacilities.length === 0 ? (
@@ -329,7 +441,7 @@ export default function MotherSignupScreen({ navigation }) {
               </View>
               <View style={styles.summaryRow}>
                 <Text style={styles.summaryLabel}>{t('date_of_birth')}</Text>
-                <Text style={styles.summaryValue}>{form.dateOfBirth}</Text>
+                <Text style={styles.summaryValue}>{toDateString(form.dateOfBirth)}</Text>
               </View>
               <View style={styles.summaryRow}>
                 <Text style={styles.summaryLabel}>{t('pregnancy_stage')}</Text>
@@ -407,6 +519,21 @@ const styles = StyleSheet.create({
   facilityName: { fontSize: 14, fontWeight: '600', color: '#2C3E50' },
   facilityNameActive: { color: '#006633' },
   facilityWard: { fontSize: 12, color: '#7F8C8D', marginTop: 2 },
+  datePicker: { marginTop: 8 },
+  datePreview: { fontSize: 14, color: '#2C3E50', fontWeight: '500', marginTop: 8, textAlign: 'center' },
+  dropdownBtn: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    borderWidth: 1, borderColor: '#E0E0E0', borderRadius: 10, padding: 14,
+    backgroundColor: '#FAFAFA', marginTop: 4,
+  },
+  dropdownBtnText: { fontSize: 16, color: '#333', flex: 1 },
+  dropdownPlaceholder: { color: '#999' },
+  dropdownArrow: { fontSize: 12, color: '#666', marginLeft: 8 },
+  dropdownList: { maxHeight: 180, borderWidth: 1, borderColor: '#E0E0E0', borderRadius: 10, marginTop: 4, backgroundColor: '#fff' },
+  dropdownItem: { padding: 12, borderBottomWidth: 1, borderBottomColor: '#F0F0F0' },
+  dropdownItemActive: { backgroundColor: '#E8F5E9' },
+  dropdownItemText: { fontSize: 15, color: '#2C3E50' },
+  dropdownItemTextActive: { color: '#006633', fontWeight: '600' },
   emptyText: { color: '#999', fontSize: 14, textAlign: 'center', padding: 20 },
   successContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 24 },
   successIcon: { fontSize: 64, marginBottom: 16 },

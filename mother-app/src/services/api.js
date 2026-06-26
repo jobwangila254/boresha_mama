@@ -149,6 +149,12 @@ class ApiService {
     return this.request(`/monitoring${query ? '?' + query : ''}`);
   }
 
+  // Locations
+  getLocations(params = {}) {
+    const query = new URLSearchParams(params).toString();
+    return this.request(`/locations${query ? '?' + query : ''}`);
+  }
+
   // Facilities
   getFacilities(params = {}) {
     const query = new URLSearchParams(params).toString();

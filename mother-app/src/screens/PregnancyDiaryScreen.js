@@ -41,7 +41,6 @@ export default function PregnancyDiaryScreen({ navigation }) {
     currentSymptoms: [],
     deliveryPlan: 'facility',
     supportPerson: '',
-    emergencyContactName: '',
     emergencyContactPhone: '',
     breastfeedingPlan: 'exclusive',
     familyPlanning: '',
@@ -49,8 +48,6 @@ export default function PregnancyDiaryScreen({ navigation }) {
     careSupport: '',
     emergencyTransport: true,
     preferredFacilityId: '',
-    village: '',
-    ward: '',
   });
 
   function toggleArray(arr, value) {
@@ -70,7 +67,7 @@ export default function PregnancyDiaryScreen({ navigation }) {
     switch (step) {
       case 0: return true;
       case 1: return true;
-      case 2: return data.emergencyContactName.trim() && data.emergencyContactPhone.trim();
+      case 2: return data.emergencyContactPhone.trim();
       case 3: return true;
       default: return false;
     }
@@ -103,14 +100,11 @@ export default function PregnancyDiaryScreen({ navigation }) {
           previousComplications: data.previousComplications,
           bloodType: data.bloodType,
           currentSymptoms: data.currentSymptoms,
-          village: data.village,
-          ward: data.ward,
         },
         postnatal: {
           deliveryPlan: data.deliveryPlan,
           preferredFacilityId: data.preferredFacilityId,
           supportPerson: data.supportPerson,
-          emergencyContactName: data.emergencyContactName,
           emergencyContactPhone: data.emergencyContactPhone,
           breastfeedingPlan: data.breastfeedingPlan,
           familyPlanning: data.familyPlanning,
@@ -214,17 +208,6 @@ export default function PregnancyDiaryScreen({ navigation }) {
         ))}
       </View>
 
-      <View style={styles.row}>
-        <View style={styles.halfField}>
-          <Text style={styles.label}>{t('village')}</Text>
-          <TextInput style={styles.input} value={data.village} onChangeText={v => update('village', v)} placeholderTextColor="#999" />
-        </View>
-        <View style={styles.halfField}>
-          <Text style={styles.label}>{t('ward')}</Text>
-          <TextInput style={styles.input} value={data.ward} onChangeText={v => update('ward', v)} placeholderTextColor="#999" />
-        </View>
-      </View>
-
       <TouchableOpacity style={styles.button} onPress={nextStep}>
         <Text style={styles.buttonText}>{t('next')}</Text>
       </TouchableOpacity>
@@ -257,9 +240,6 @@ export default function PregnancyDiaryScreen({ navigation }) {
 
       <Text style={styles.label}>{t('support_person')}</Text>
       <TextInput style={styles.input} value={data.supportPerson} onChangeText={v => update('supportPerson', v)} placeholder={t('support_person_placeholder')} placeholderTextColor="#999" />
-
-      <Text style={styles.label}>{t('emergency_contact_name_label')} *</Text>
-      <TextInput style={styles.input} value={data.emergencyContactName} onChangeText={v => update('emergencyContactName', v)} placeholderTextColor="#999" />
 
       <Text style={styles.label}>{t('emergency_phone')} *</Text>
       <TextInput style={styles.input} value={data.emergencyContactPhone} onChangeText={v => update('emergencyContactPhone', v)} keyboardType="phone-pad" placeholder="+2547XXXXXXXX" placeholderTextColor="#999" />

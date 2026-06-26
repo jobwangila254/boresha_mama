@@ -101,8 +101,6 @@ export default function AppNavigator() {
             ) : (
               <Stack.Screen name="Main" component={HomeTabs} />
             )}
-            <Stack.Screen name="PregnancyDiary" component={PregnancyDiaryScreen} />
-            <Stack.Screen name="Main" component={HomeTabs} />
             {['chv', 'facility_staff', 'county_admin'].includes(user?.role) && (
               <Stack.Screen name="RegisterMother" component={RegisterMotherScreen} />
             )}
