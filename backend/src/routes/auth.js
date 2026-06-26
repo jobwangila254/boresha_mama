@@ -52,6 +52,7 @@ router.post('/register-mother', authenticate, authorize('chv', 'facility_staff',
   body('nationalId').notEmpty().isLength({ min: 5 }).withMessage('National ID is required and must be at least 5 characters'),
   body('gravida').optional().isInt({ min: 1 }),
   body('parity').optional().isInt({ min: 0 }),
+  body('onboardingData').optional().isObject().withMessage('Onboarding data must be an object'),
   validate,
 ], controller.registerMother);
 

@@ -280,7 +280,8 @@ class AuthService {
   async registerMother(motherData, registeredByUser) {
     const { password, firstName, lastName, nationalId, lmpDate, pregnancyStage, facilityId,
             gravida, parity, village, subLocation, ward, constituency,
-            emergencyContactName, emergencyContactPhone, alternatePhone, riskFactors } = motherData;
+            emergencyContactName, emergencyContactPhone, alternatePhone, riskFactors,
+            onboardingData } = motherData;
     const phone = sanitizePhone(motherData.phone);
     const client = await db.getClient();
 
@@ -309,11 +310,12 @@ class AuthService {
         chvId = registeredByUser.id;
       }
 
+      const hasOnboarding = onboardingData && typeof onboardingData === 'object';
       const motherResult = await client.query(
-        `INSERT INTO mothers (user_id, village, sub_location, ward, constituency, emergency_contact_name, emergency_contact_phone, alternate_phone, chv_id)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        `INSERT INTO mothers (user_id, village, sub_location, ward, constituency, emergency_contact_name, emergency_contact_phone, alternate_phone, chv_id, completed_onboarding, onboarding_data)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
          RETURNING id`,
-        [userId, village || null, subLocation || null, ward || null, constituency || 'Kiminini', emergencyContactName || null, emergencyContactPhone || null, alternatePhone || null, chvId]
+        [userId, village || null, subLocation || null, ward || null, constituency || 'Kiminini', emergencyContactName || null, emergencyContactPhone || null, alternatePhone || null, chvId, hasOnboarding, hasOnboarding ? JSON.stringify(onboardingData) : '{}']
       );
       const motherId = motherResult.rows[0].id;
 
@@ -371,7 +373,7 @@ class AuthService {
       });
 
       return {
-        user: { id: userId, phone, firstName, lastName, role: 'mother' },
+        user: { id: userId, phone, firstName, lastName, role: 'mother', completedOnboarding: hasOnboarding },
         pregnancy: pregnancyResult.rows[0],
         tempPassword: password,
         token,
