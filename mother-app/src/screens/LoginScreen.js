@@ -74,6 +74,10 @@ export default function LoginScreen({ navigation }) {
             )}
           </TouchableOpacity>
 
+          <TouchableOpacity style={styles.signupBtn} onPress={() => navigation.navigate('MotherSignup')}>
+            <Text style={styles.signupBtnText}>{t('mother_signup')}</Text>
+          </TouchableOpacity>
+
           <View style={styles.regInfo}>
             <Text style={styles.regInfoText}>
               {t('registration_info')}
@@ -97,6 +101,8 @@ const styles = StyleSheet.create({
   button: { backgroundColor: '#006633', borderRadius: 10, padding: 16, alignItems: 'center', marginTop: 24 },
   buttonDisabled: { opacity: 0.6 },
   buttonText: { color: '#fff', fontSize: 18, fontWeight: '600' },
+  signupBtn: { backgroundColor: '#fff', borderRadius: 10, padding: 14, alignItems: 'center', marginTop: 16, borderWidth: 2, borderColor: '#006633' },
+  signupBtnText: { color: '#006633', fontSize: 16, fontWeight: '600' },
   regInfo: { marginTop: 20, backgroundColor: '#FFF8E1', borderRadius: 10, padding: 16, borderLeftWidth: 3, borderLeftColor: '#FFD700' },
   regInfoText: { color: '#7F6B2D', fontSize: 13, lineHeight: 18 },
 });

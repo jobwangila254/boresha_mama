@@ -79,11 +79,22 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.greetingText}>{t('hello')}, {user?.firstName || t('mother')} 👋</Text>
           <Text style={styles.greetingSub}>{t('welcome')}</Text>
         </View>
-        <View style={styles.onboardingCard}>
-          <Text style={styles.onboardIcon}>👶</Text>
-          <Text style={styles.onboardTitle}>{t('welcome_title')}</Text>
-          <Text style={styles.onboardText}>{t('onboarding_text')}</Text>
-        </View>
+        {!user?.completedOnboarding ? (
+          <View style={styles.onboardingCard}>
+            <Text style={styles.onboardIcon}>📋</Text>
+            <Text style={styles.onboardTitle}>{t('complete_your_diary')}</Text>
+            <Text style={styles.onboardText}>{t('diary_prompt_text')}</Text>
+            <TouchableOpacity style={styles.diaryBtn} onPress={() => navigation.navigate('PregnancyDiary')}>
+              <Text style={styles.diaryBtnText}>{t('start_diary')}</Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View style={styles.onboardingCard}>
+            <Text style={styles.onboardIcon}>👶</Text>
+            <Text style={styles.onboardTitle}>{t('welcome_title')}</Text>
+            <Text style={styles.onboardText}>{t('onboarding_text')}</Text>
+          </View>
+        )}
         <View style={styles.dangerSection}>
           <Text style={styles.dangerTitle}>🚨 {t('danger_signs')}</Text>
           <Text style={styles.dangerText}>{t('danger_signs_warning')}</Text>

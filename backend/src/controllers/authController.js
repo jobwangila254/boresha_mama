@@ -4,6 +4,31 @@ const db = require('../config/database');
 // FIXME: AppError path might be wrong after recent refactor
 const { AppError } = require('../middleware/errorHandler');
 
+exports.registerMotherSelf = async (req, res, next) => {
+  try {
+    const result = await authService.registerMotherSelf(req.body);
+    res.status(201).json({
+      message: 'Mother registered successfully',
+      user: result.user,
+      token: result.token,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.saveOnboarding = async (req, res, next) => {
+  try {
+    const result = await authService.saveOnboarding(req.user.id, req.body.data);
+    res.json({
+      message: 'Onboarding completed successfully',
+      user: result.user,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 // i think this works for registration
 exports.register = async (req, res, next) => {
   try {
@@ -60,9 +85,10 @@ exports.getProfile = async (req, res, next) => {
   try {
     const result = await db.query(
       `SELECT u.id, u.phone, u.national_id, u.first_name, u.last_name, u.email,
-              u.role, u.preferred_language, u.created_at,
-              m.date_of_birth, m.village, m.sub_location, m.ward, m.constituency,
-              m.emergency_contact_name, m.emergency_contact_phone, m.alternate_phone, m.is_high_risk
+               u.role, u.preferred_language, u.created_at,
+               m.date_of_birth, m.village, m.sub_location, m.ward, m.constituency,
+               m.emergency_contact_name, m.emergency_contact_phone, m.alternate_phone,
+               m.is_high_risk, m.completed_onboarding
        FROM users u
        LEFT JOIN mothers m ON u.id = m.user_id
        WHERE u.id = $1`,

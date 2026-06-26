@@ -7,6 +7,26 @@ const controller = require('../controllers/authController');
 
 const router = Router();
 
+router.post('/register-mother-self', [
+  body('firstName').notEmpty().trim(),
+  body('lastName').notEmpty().trim(),
+  body('phone').matches(/^\+?254\d{9}$/).withMessage('Valid Kenyan phone number required'),
+  body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
+  body('dateOfBirth').isDate().withMessage('Date of birth is required'),
+  body('lmpDate').optional({ values: 'null' }).isDate().withMessage('LMP date must be a valid date'),
+  body('pregnancyStage').isIn(['first_trimester', 'second_trimester', 'third_trimester', 'postnatal'])
+    .withMessage('Valid pregnancy stage required'),
+  body('village').optional().trim(),
+  body('ward').optional().trim(),
+  body('facilityId').optional().isUUID(),
+  validate,
+], controller.registerMotherSelf);
+
+router.post('/onboarding', authenticate, audit('COMPLETE_ONBOARDING', 'mother'), [
+  body('data').isObject().withMessage('Onboarding data is required'),
+  validate,
+], controller.saveOnboarding);
+
 router.post('/register', authenticate, authorize('county_admin'), audit('REGISTER_USER', 'user'), [
   body('phone').matches(/^\+?254\d{9}$/).withMessage('Valid Kenyan phone number required'),
   body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
@@ -26,7 +46,9 @@ router.post('/register-mother', authenticate, authorize('chv', 'facility_staff',
   body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
   body('firstName').notEmpty().trim(),
   body('lastName').notEmpty().trim(),
-  body('lmpDate').isDate().withMessage('Last menstrual period date is required'),
+  body('lmpDate').optional({ values: 'null' }).isDate().withMessage('LMP date must be a valid date'),
+  body('pregnancyStage').optional().isIn(['first_trimester', 'second_trimester', 'third_trimester', 'postnatal'])
+    .withMessage('Valid pregnancy stage required when LMP is unknown'),
   body('nationalId').notEmpty().isLength({ min: 5 }).withMessage('National ID is required and must be at least 5 characters'),
   body('gravida').optional().isInt({ min: 1 }),
   body('parity').optional().isInt({ min: 0 }),

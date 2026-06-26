@@ -32,6 +32,7 @@ export function AuthProvider({ children }) {
       emergencyContactPhone: profile.emergency_contact_phone,
       alternatePhone: profile.alternate_phone,
       isHighRisk: profile.is_high_risk,
+      completedOnboarding: profile.completed_onboarding,
     };
   }
 
@@ -51,6 +52,21 @@ export function AuthProvider({ children }) {
     return response;
   }
 
+  async function registerMotherSelf(userData) {
+    const response = await api.registerMotherSelf(userData);
+    await api.setToken(response.token);
+    const profile = await api.getProfile();
+    setUser(mapProfile(profile));
+    setIsAuthenticated(true);
+    return response;
+  }
+
+  async function refreshProfile() {
+    const profile = await api.getProfile();
+    setUser(mapProfile(profile));
+    return profile;
+  }
+
   async function logout() {
     await api.setToken(null);
     setUser(null);
@@ -65,6 +81,8 @@ export function AuthProvider({ children }) {
         isAuthenticated,
         login,
         register,
+        registerMotherSelf,
+        refreshProfile,
         logout,
         setUser,
       }}

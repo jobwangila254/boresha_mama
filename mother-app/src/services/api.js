@@ -85,6 +85,20 @@ class ApiService {
     });
   }
 
+  registerMotherSelf(data) {
+    return this.request('/auth/register-mother-self', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
+  saveOnboarding(data) {
+    return this.request('/auth/onboarding', {
+      method: 'POST',
+      body: JSON.stringify({ data }),
+    });
+  }
+
   getProfile() {
     return this.request('/auth/profile');
   }

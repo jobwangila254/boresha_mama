@@ -16,6 +16,8 @@ import ProfileScreen from '../screens/ProfileScreen';
 import RegisterMotherScreen from '../screens/RegisterMotherScreen';
 import FacilitiesScreen from '../screens/FacilitiesScreen';
 import HealthTipsScreen from '../screens/HealthTipsScreen';
+import MotherSignupScreen from '../screens/MotherSignupScreen';
+import PregnancyDiaryScreen from '../screens/PregnancyDiaryScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -94,10 +96,16 @@ export default function AppNavigator() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {isAuthenticated ? (
           <>
+            {user?.role === 'mother' && !user?.completedOnboarding ? (
+              <Stack.Screen name="PregnancyDiary" component={PregnancyDiaryScreen} />
+            ) : (
+              <Stack.Screen name="Main" component={HomeTabs} />
+            )}
+            <Stack.Screen name="PregnancyDiary" component={PregnancyDiaryScreen} />
             <Stack.Screen name="Main" component={HomeTabs} />
-          {['chv', 'facility_staff', 'county_admin'].includes(user?.role) && (
-            <Stack.Screen name="RegisterMother" component={RegisterMotherScreen} />
-          )}
+            {['chv', 'facility_staff', 'county_admin'].includes(user?.role) && (
+              <Stack.Screen name="RegisterMother" component={RegisterMotherScreen} />
+            )}
             <Stack.Screen name="Facilities" component={FacilitiesScreen} />
             <Stack.Screen name="HealthTips" component={HealthTipsScreen} />
           </>
@@ -105,6 +113,7 @@ export default function AppNavigator() {
           <>
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="MotherSignup" component={MotherSignupScreen} />
           </>
         )}
       </Stack.Navigator>

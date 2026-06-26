@@ -73,6 +73,134 @@ class AuthService {
     }
   }
 
+  async registerMotherSelf(motherData) {
+    const { firstName, lastName, phone, password, dateOfBirth, lmpDate, pregnancyStage, village, ward, facilityId } = motherData;
+    const sanitizedPhone = sanitizePhone(phone);
+    const client = await db.getClient();
+
+    try {
+      await client.query('BEGIN');
+
+      const existing = await client.query('SELECT id FROM users WHERE phone = $1', [sanitizedPhone]);
+      if (existing.rows.length > 0) {
+        throw new AppError('Phone number already registered', 409);
+      }
+
+      const passwordHash = await bcrypt.hash(password, config.bcrypt.rounds);
+      const userId = uuidv4();
+
+      await client.query(
+        `INSERT INTO users (id, phone, first_name, last_name, password_hash, role, is_verified)
+         VALUES ($1, $2, $3, $4, $5, 'mother', true)`,
+        [userId, sanitizedPhone, firstName, lastName, passwordHash]
+      );
+
+      await client.query(
+        `INSERT INTO mothers (user_id, date_of_birth, village, ward) VALUES ($1, $2, $3, $4)`,
+        [userId, dateOfBirth, village || null, ward || null]
+      );
+
+      const motherResult = await client.query('SELECT id FROM mothers WHERE user_id = $1', [userId]);
+      const motherId = motherResult.rows[0].id;
+
+      let eddDate, lmpDateStr;
+      if (lmpDate) {
+        lmpDateStr = lmpDate;
+        const edd = new Date(lmpDate);
+        edd.setDate(edd.getDate() + 280);
+        eddDate = edd.toISOString().split('T')[0];
+      } else {
+        const today = new Date();
+        let estWeeksPregnant;
+        switch (pregnancyStage) {
+          case 'first_trimester': estWeeksPregnant = 8; break;
+          case 'second_trimester': estWeeksPregnant = 20; break;
+          case 'third_trimester': estWeeksPregnant = 34; break;
+          case 'postnatal': estWeeksPregnant = 40; break;
+          default: estWeeksPregnant = 8;
+        }
+        const estLmp = new Date(today);
+        estLmp.setDate(estLmp.getDate() - (estWeeksPregnant * 7));
+        lmpDateStr = estLmp.toISOString().split('T')[0];
+        const edd = new Date(estLmp);
+        edd.setDate(edd.getDate() + 280);
+        eddDate = edd.toISOString().split('T')[0];
+      }
+
+      let status = 'active';
+      let deliveredAt = null;
+
+      if (pregnancyStage === 'postnatal') {
+        status = 'delivered';
+        deliveredAt = new Date().toISOString();
+      }
+
+      await client.query(
+        `INSERT INTO pregnancies (mother_id, registered_by, lmp_date, edd_date, status, gravida, parity, facility_id, delivered_at)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+        [motherId, userId, lmpDateStr, eddDate, status, 1, 0, facilityId || null, deliveredAt]
+      );
+
+      await client.query('COMMIT');
+
+      const token = this.generateToken({ id: userId, role: 'mother', phone: sanitizedPhone });
+      logger.info(`Mother self-registered: ${sanitizedPhone}`);
+
+      return {
+        userId,
+        token,
+        user: { id: userId, phone: sanitizedPhone, firstName, lastName, role: 'mother' },
+      };
+    } catch (err) {
+      await client.query('ROLLBACK');
+      throw err;
+    } finally {
+      client.release();
+    }
+  }
+
+  async saveOnboarding(userId, data) {
+    const client = await db.getClient();
+    try {
+      await client.query('BEGIN');
+
+      await client.query(
+        `UPDATE mothers SET onboarding_data = $1, completed_onboarding = true, updated_at = NOW()
+         WHERE user_id = $2`,
+        [JSON.stringify(data), userId]
+      );
+
+      await client.query('COMMIT');
+
+      const result = await db.query(
+        `SELECT u.first_name, u.last_name, u.phone, u.role, u.email,
+                m.completed_onboarding
+         FROM users u
+         LEFT JOIN mothers m ON u.id = m.user_id
+         WHERE u.id = $1`,
+        [userId]
+      );
+
+      const profile = result.rows[0];
+      return {
+        user: {
+          id: userId,
+          phone: profile.phone,
+          firstName: profile.first_name,
+          lastName: profile.last_name,
+          role: profile.role,
+          email: profile.email,
+          completedOnboarding: profile.completed_onboarding,
+        },
+      };
+    } catch (err) {
+      await client.query('ROLLBACK');
+      throw err;
+    } finally {
+      client.release();
+    }
+  }
+
   async login(identifier, password) {
     const phone = sanitizePhone(identifier);
     const result = await db.query(
@@ -150,7 +278,7 @@ class AuthService {
   }
 
   async registerMother(motherData, registeredByUser) {
-    const { password, firstName, lastName, nationalId, lmpDate, facilityId,
+    const { password, firstName, lastName, nationalId, lmpDate, pregnancyStage, facilityId,
             gravida, parity, village, subLocation, ward, constituency,
             emergencyContactName, emergencyContactPhone, alternatePhone, riskFactors } = motherData;
     const phone = sanitizePhone(motherData.phone);
@@ -189,10 +317,29 @@ class AuthService {
       );
       const motherId = motherResult.rows[0].id;
 
-      const lmp = new Date(lmpDate);
-      const edd = new Date(lmp);
-      edd.setDate(edd.getDate() + 280);
-      const eddDate = edd.toISOString().split('T')[0];
+      let lmpDateStr, eddDate;
+      if (lmpDate) {
+        lmpDateStr = lmpDate;
+        const edd = new Date(lmpDate);
+        edd.setDate(edd.getDate() + 280);
+        eddDate = edd.toISOString().split('T')[0];
+      } else {
+        const today = new Date();
+        let estWeeksPregnant;
+        switch (pregnancyStage) {
+          case 'first_trimester': estWeeksPregnant = 8; break;
+          case 'second_trimester': estWeeksPregnant = 20; break;
+          case 'third_trimester': estWeeksPregnant = 34; break;
+          case 'postnatal': estWeeksPregnant = 40; break;
+          default: estWeeksPregnant = 8;
+        }
+        const estLmp = new Date(today);
+        estLmp.setDate(estLmp.getDate() - (estWeeksPregnant * 7));
+        lmpDateStr = estLmp.toISOString().split('T')[0];
+        const edd = new Date(estLmp);
+        edd.setDate(edd.getDate() + 280);
+        eddDate = edd.toISOString().split('T')[0];
+      }
 
       const riskLevel = this.calculateRiskLevel(riskFactors);
 
@@ -200,7 +347,7 @@ class AuthService {
         `INSERT INTO pregnancies (mother_id, registered_by, facility_id, lmp_date, edd_date, gravida, parity, risk_factors, risk_level)
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
          RETURNING *`,
-        [motherId, registeredByUser.id, facilityId || null, lmpDate, eddDate, gravida || 1, parity || 0, riskFactors || [], riskLevel]
+        [motherId, registeredByUser.id, facilityId || null, lmpDateStr, eddDate, gravida || 1, parity || 0, riskFactors || [], riskLevel]
       );
 
       const pregnancy = pregnancyResult.rows[0];
