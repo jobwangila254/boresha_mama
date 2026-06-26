@@ -5,7 +5,7 @@ services:
     region: frankfurt
     plan: free
     buildCommand: npm install --production
-    startCommand: cd backend && node src/index.js
+    startCommand: cd backend && node src/migrations/run.js && node src/index.js
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
