@@ -425,3 +425,20 @@ SELECT * FROM (VALUES
 ('Sleep Position', 'Sleep on your left side from the second trimester to improve blood flow to your baby.', 'Lala upande wa kushoto kuanzia trimester ya pili ili kuboresha mtiririko wa damu kwa mtoto wako.', 2, 13, 27, 'general'))
 AS tmp(title, content_en, content_sw, trimester, week_start, week_end, category)
 WHERE NOT EXISTS (SELECT 1 FROM health_tips WHERE title = tmp.title);
+
+-- ============================================
+-- FIX: Update risk levels for mothers with inconsistent risk factor data
+-- This ensures medium risk level always has corresponding risk factors
+-- ============================================
+UPDATE pregnancies 
+SET risk_factors = ARRAY['anemia'], risk_level = 'medium', updated_at = NOW()
+WHERE mother_id = (
+  SELECT m.id FROM mothers m 
+  JOIN users u ON m.user_id = u.id 
+  WHERE u.first_name = 'Nancy' AND u.last_name = 'Biwott'
+) AND status = 'active' AND risk_level = 'medium';
+
+-- Fix any other pregnancies with wrong risk level (medium without risk factors)
+UPDATE pregnancies 
+SET risk_level = 'low'
+WHERE risk_level = 'medium' AND (risk_factors IS NULL OR array_length(risk_factors, 1) IS NULL);
