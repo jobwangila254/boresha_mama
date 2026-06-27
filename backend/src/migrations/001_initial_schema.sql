@@ -430,13 +430,14 @@ WHERE NOT EXISTS (SELECT 1 FROM health_tips WHERE title = tmp.title);
 -- FIX: Update risk levels for mothers with inconsistent risk factor data
 -- This ensures medium risk level always has corresponding risk factors
 -- ============================================
+-- Set Nancy Biwott's risk factors and recalculate risk level
 UPDATE pregnancies 
 SET risk_factors = ARRAY['anemia'], risk_level = 'medium', updated_at = NOW()
 WHERE mother_id = (
   SELECT m.id FROM mothers m 
   JOIN users u ON m.user_id = u.id 
   WHERE u.first_name = 'Nancy' AND u.last_name = 'Biwott'
-) AND status = 'active' AND risk_level = 'medium';
+) AND status = 'active';
 
 -- Fix any other pregnancies with wrong risk level (medium without risk factors)
 UPDATE pregnancies 
