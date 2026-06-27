@@ -14,6 +14,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   function mapProfile(profile) {
+    const onboardingData = profile.onboarding_data || {};
     return {
       id: profile.id,
       phone: profile.phone,
@@ -33,6 +34,7 @@ export function AuthProvider({ children }) {
       alternatePhone: profile.alternate_phone,
       isHighRisk: profile.is_high_risk,
       completedOnboarding: profile.completed_onboarding,
+      onboardingData: onboardingData,
     };
   }
 

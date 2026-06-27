@@ -176,7 +176,7 @@ async function seed() {
       { phone: '+254701876011', firstName: 'Hellen', lastName: 'Mmbone', ward: 'Sikhendu', village: 'Konoin', facilityName: 'Sikhendu Dispensary', dueDate: '2026-09-18' },
       // Sirende ward - 2 mothers
       { phone: '+254701543013', firstName: 'Ruth', lastName: 'Kipyegen', ward: 'Sirende', village: 'Sirende', facilityName: 'Kiminini Health Centre', dueDate: '2026-11-25' },
-      { phone: '+254701210006', firstName: 'Nancy', lastName: 'Biwott', ward: 'Sirende', village: 'Baraton', facilityName: 'Kiminini Health Centre', dueDate: '2026-10-08', riskLevel: 'medium' },
+      { phone: '+254701210006', firstName: 'Nancy', lastName: 'Biwott', ward: 'Sirende', village: 'Baraton', facilityName: 'Kiminini Health Centre', dueDate: '2026-10-08' },
     ];
 
     for (let mi = 0; mi < mothers.length; mi++) {

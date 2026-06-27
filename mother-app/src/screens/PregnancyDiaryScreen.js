@@ -50,6 +50,36 @@ export default function PregnancyDiaryScreen({ navigation }) {
     preferredFacilityId: '',
   });
 
+  useEffect(() => {
+    if (user?.onboardingData && Object.keys(user.onboardingData).length > 0) {
+      const prenatal = user.onboardingData.prenatal || {};
+      const postnatal = user.onboardingData.postnatal || {};
+      const childcare = user.onboardingData.childcare || {};
+      setData(prev => ({
+        ...prev,
+        chronicConditions: prenatal.chronicConditions || prev.chronicConditions,
+        allergies: prenatal.allergies || prev.allergies,
+        currentMedications: prenatal.currentMedications || prev.currentMedications,
+        height: prenatal.height ? String(prenatal.height) : prev.height,
+        weight: prenatal.weight ? String(prenatal.weight) : prev.weight,
+        previousPregnancies: String(prenatal.previousPregnancies || prev.previousPregnancies),
+        previousBirths: String(prenatal.previousBirths || prev.previousBirths),
+        previousComplications: prenatal.previousComplications || prev.previousComplications,
+        bloodType: prenatal.bloodType || prev.bloodType,
+        currentSymptoms: prenatal.currentSymptoms || prev.currentSymptoms,
+        deliveryPlan: postnatal.deliveryPlan || prev.deliveryPlan,
+        supportPerson: postnatal.supportPerson || prev.supportPerson,
+        emergencyContactPhone: postnatal.emergencyContactPhone || user.emergencyContactPhone || prev.emergencyContactPhone,
+        breastfeedingPlan: postnatal.breastfeedingPlan || prev.breastfeedingPlan,
+        familyPlanning: postnatal.familyPlanning || prev.familyPlanning,
+        knowsVaccinations: childcare.knowsVaccinations !== false,
+        careSupport: childcare.careSupport || prev.careSupport,
+        emergencyTransport: childcare.emergencyTransport !== false,
+        preferredFacilityId: '',
+      }));
+    }
+  }, [user?.onboardingData]);
+
   function toggleArray(arr, value) {
     if (value === 'none') return ['none'];
     const filtered = arr.filter(v => v !== 'none');

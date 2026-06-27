@@ -89,10 +89,10 @@ exports.getProfile = async (req, res, next) => {
                u.role, u.preferred_language, u.created_at,
                m.date_of_birth, m.village, m.sub_location, m.ward, m.constituency,
                m.emergency_contact_name, m.emergency_contact_phone, m.alternate_phone,
-               m.is_high_risk, m.completed_onboarding
-       FROM users u
-       LEFT JOIN mothers m ON u.id = m.user_id
-       WHERE u.id = $1`,
+               m.is_high_risk, m.completed_onboarding, m.onboarding_data
+        FROM users u
+        LEFT JOIN mothers m ON u.id = m.user_id
+        WHERE u.id = $1`,
       [req.user.id]
     );
 

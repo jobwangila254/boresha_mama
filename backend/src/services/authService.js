@@ -277,6 +277,35 @@ class AuthService {
     return 'low';
   }
 
+  extractRiskFactorsFromOnboarding(onboardingData) {
+    const riskFactors = [];
+    if (!onboardingData || typeof onboardingData !== 'object') return riskFactors;
+
+    const prenatal = onboardingData.prenatal || {};
+    const chronicConditions = prenatal.chronicConditions || [];
+
+    if (chronicConditions.includes('anemia')) {
+      riskFactors.push('anemia');
+    }
+    if (chronicConditions.includes('hypertension')) {
+      riskFactors.push('hypertension');
+    }
+    if (chronicConditions.includes('diabetes')) {
+      riskFactors.push('diabetes');
+    }
+    if (chronicConditions.includes('hiv')) {
+      riskFactors.push('hiv_positive');
+    }
+
+    const previousComplications = prenatal.previousComplications || [];
+    const complicationRiskFactors = ['previous_c_section', 'preeclampsia', 'preterm_birth', 'miscarriage', 'stillbirth'];
+    if (previousComplications.some(c => complicationRiskFactors.includes(c))) {
+      riskFactors.push('previous_complication');
+    }
+
+    return riskFactors;
+  }
+
   async registerMother(motherData, registeredByUser) {
     const { password, firstName, lastName, nationalId, lmpDate, pregnancyStage, facilityId,
             gravida, parity, village, subLocation, ward, constituency,
@@ -311,6 +340,10 @@ class AuthService {
       }
 
       const hasOnboarding = onboardingData && typeof onboardingData === 'object';
+      const effectiveRiskFactors = riskFactors && riskFactors.length > 0
+        ? riskFactors
+        : this.extractRiskFactorsFromOnboarding(onboardingData);
+
       const motherResult = await client.query(
         `INSERT INTO mothers (user_id, village, sub_location, ward, constituency, emergency_contact_name, emergency_contact_phone, alternate_phone, chv_id, completed_onboarding, onboarding_data)
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
@@ -343,13 +376,13 @@ class AuthService {
         eddDate = edd.toISOString().split('T')[0];
       }
 
-      const riskLevel = this.calculateRiskLevel(riskFactors);
+      const riskLevel = this.calculateRiskLevel(effectiveRiskFactors);
 
       const pregnancyResult = await client.query(
         `INSERT INTO pregnancies (mother_id, registered_by, facility_id, lmp_date, edd_date, gravida, parity, risk_factors, risk_level)
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
          RETURNING *`,
-        [motherId, registeredByUser.id, facilityId || null, lmpDateStr, eddDate, gravida || 1, parity || 0, riskFactors || [], riskLevel]
+        [motherId, registeredByUser.id, facilityId || null, lmpDateStr, eddDate, gravida || 1, parity || 0, effectiveRiskFactors, riskLevel]
       );
 
       const pregnancy = pregnancyResult.rows[0];
