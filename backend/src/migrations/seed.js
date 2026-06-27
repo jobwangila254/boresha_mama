@@ -176,7 +176,7 @@ async function seed() {
       { phone: '+254701876011', firstName: 'Hellen', lastName: 'Mmbone', ward: 'Sikhendu', village: 'Konoin', facilityName: 'Sikhendu Dispensary', dueDate: '2026-09-18' },
       // Sirende ward - 2 mothers
       { phone: '+254701543013', firstName: 'Ruth', lastName: 'Kipyegen', ward: 'Sirende', village: 'Sirende', facilityName: 'Kiminini Health Centre', dueDate: '2026-11-25' },
-      { phone: '+254701210006', firstName: 'Nancy', lastName: 'Biwott', ward: 'Sirende', village: 'Baraton', facilityName: 'Kiminini Health Centre', dueDate: '2026-10-08' },
+      { phone: '+254701210006', firstName: 'Nancy', lastName: 'Biwott', ward: 'Sirende', village: 'Baraton', facilityName: 'Kiminini Health Centre', dueDate: '2026-10-08', riskFactors: ['anemia'] },
     ];
 
     for (let mi = 0; mi < mothers.length; mi++) {
@@ -212,11 +212,19 @@ async function seed() {
         const edd = new Date(m.dueDate);
         const lmp = new Date(edd);
         lmp.setDate(lmp.getDate() - 280);
+
+        // Calculate risk level from risk factors
+        const highRiskFactors = ['previous_miscarriage', 'hypertension', 'diabetes', 'multiple_pregnancy', 'age_over_35', 'age_under_18', 'previous_c_section', 'hiv_positive', 'anemia_severe'];
+        const mediumRiskFactors = ['anemia', 'previous_complication', 'obesity', 'short_stature'];
+        const hasHigh = m.riskFactors?.some(f => highRiskFactors.includes(f));
+        const hasMedium = m.riskFactors?.some(f => mediumRiskFactors.includes(f));
+        const calculatedRiskLevel = hasHigh ? 'high' : hasMedium ? 'medium' : 'low';
+
         await client.query(
-          `INSERT INTO pregnancies (mother_id, facility_id, registered_by, lmp_date, edd_date, risk_level, status)
-           VALUES ($1, $2, $3, $4, $5, $6, 'active')
+          `INSERT INTO pregnancies (mother_id, facility_id, registered_by, lmp_date, edd_date, risk_level, risk_factors, status)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, 'active')
            ON CONFLICT DO NOTHING`,
-          [motherId, facilityId, adminUserId, lmp.toISOString().split('T')[0], m.dueDate, m.riskLevel || 'low']
+          [motherId, facilityId, adminUserId, lmp.toISOString().split('T')[0], m.dueDate, calculatedRiskLevel, m.riskFactors || []]
         );
       }
     }
