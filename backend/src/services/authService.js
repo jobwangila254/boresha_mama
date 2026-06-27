@@ -170,6 +170,16 @@ class AuthService {
         [JSON.stringify(data), userId]
       );
 
+      // Update pregnancy risk factors and risk level based on onboarding data
+      const extractedRiskFactors = this.extractRiskFactorsFromOnboarding(data);
+      const calculatedRiskLevel = this.calculateRiskLevel(extractedRiskFactors);
+
+      await client.query(
+        `UPDATE pregnancies SET risk_factors = $1, risk_level = $2, updated_at = NOW()
+         WHERE mother_id = (SELECT id FROM mothers WHERE user_id = $3) AND status = 'active'`,
+        [extractedRiskFactors, calculatedRiskLevel, userId]
+      );
+
       await client.query('COMMIT');
 
       const result = await db.query(
