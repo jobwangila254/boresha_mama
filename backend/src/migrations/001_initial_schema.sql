@@ -400,7 +400,7 @@ CREATE INDEX IF NOT EXISTS idx_audit_log_user ON audit_log(user_id);
 CREATE INDEX IF NOT EXISTS idx_audit_log_action ON audit_log(action);
 CREATE INDEX IF NOT EXISTS idx_audit_log_created ON audit_log(created_at);
 
--- Additional performance indexes (must be after all tables)
+-- Additional performance indexes
 CREATE INDEX IF NOT EXISTS idx_appointments_mother ON appointments(mother_id);
 CREATE INDEX IF NOT EXISTS idx_home_visits_mother ON home_visits(mother_id);
 CREATE INDEX IF NOT EXISTS idx_self_monitoring_pregnancy ON self_monitoring(pregnancy_id);
@@ -430,7 +430,7 @@ WHERE NOT EXISTS (SELECT 1 FROM health_tips WHERE title = tmp.title);
 -- FIX: Update risk levels for mothers with inconsistent risk factor data
 -- This ensures medium risk level always has corresponding risk factors
 -- ============================================
--- Set Nancy Biwott's risk factors and recalculate risk level
+
 UPDATE pregnancies 
 SET risk_factors = ARRAY['anemia'], risk_level = 'medium', updated_at = NOW()
 WHERE mother_id = (

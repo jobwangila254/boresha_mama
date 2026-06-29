@@ -106,10 +106,10 @@ Each app has its own `.env` file. The backend one is the most important:
 NODE_ENV=development
 PORT=5000
 DATABASE_URL=postgresql://user:pass@localhost:5432/boresha_mama
-JWT_SECRET=your-secret-here
+JWT_SECRET=my-secret-here
 JWT_EXPIRES_IN=90d
 CORS_ORIGIN=http://localhost:3000,http://localhost:3001,...
-AT_API_KEY=your-africastalking-key
+AT_API_KEY=my-africastalking-key
 AT_USERNAME=sandbox
 ```
 
@@ -123,7 +123,7 @@ VITE_API_URL=http://localhost:5000/api
 REACT_APP_API_URL=http://localhost:5000/api
 ```
 
-> **Note:** These `.env` files are committed to git (I know, I know — not ideal). They have dev defaults. For production, override via your hosting platform's env vars (Render dashboard, Vercel project settings). I keep meaning to fix this.
+> **Note:** These `.env` files are committed to git (I know,not ideal). They have dev defaults. For production, override via your hosting platform's env vars (Render dashboard, Vercel project settings). I keep meaning to fix this.
 
 ### Running Locally
 
@@ -157,7 +157,7 @@ The `render.yaml` has the config. Connect your GitHub repo to Render, pick the b
 
 Each frontend folder has a `vercel.json` with SPA rewrites. Connect each one as a separate Vercel project. Set the environment variables (`VITE_API_URL` or `REACT_APP_API_URL`) in Vercel project settings.
 
-> **Heads up:** Vite and CRA both bake env vars into the build. If you change the API URL, you need to redeploy. Ask me how I learned this.
+> **Heads up:** Vite and CRA both bake env vars into the build. If you change the API URL, you need to redeploy.
 
 ## Credentials (Dev/Test)
 
